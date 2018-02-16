@@ -1,32 +1,29 @@
-# Prerequisites
-*.d
+.vs/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+ipch/
+obj/
 
-# Precompiled Headers
-*.gch
-*.pch
+Debug/
+debug/
+Release/
+release/
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+HolaSDLDebug.*
+HolaSDLRelease.*
 
-# Fortran module files
-*.mod
-*.smod
+*.suo
+*.user
+*.ncb
+*.sbr
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+*.log
+*.*log
 
-# Executables
-*.exe
-*.out
-*.app
+
+In the solution folder delete all bin, obj, ipch, debug and release directories.
+Delete any .suo files
+Delete any .user files
+Delete any .ncb files
+Delete any .sbr files
+Delete any .*log files (for VS 2010)
+
