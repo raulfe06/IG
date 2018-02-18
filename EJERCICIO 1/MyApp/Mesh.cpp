@@ -102,3 +102,55 @@ Mesh* Mesh::generateTriPyramid(GLdouble r, GLdouble h){
 
 	
 }
+
+Mesh * Mesh::generateContCubo(GLdouble l)
+{
+
+	Mesh* m = new Mesh();
+	m->type = GL_TRIANGLE_STRIP;
+	m->numVertices = 8;
+	m->vertices = new dvec3[m->numVertices];
+
+	m->vertices[0] = dvec3(-l/2,-l/2,l/2);
+	m->vertices[1] = dvec3(-l/2,l/2,l/2);
+	m->vertices[2] = dvec3(l/2,-l/2,l/2);
+	m->vertices[3] = dvec3(l/2,l/2,l/2);
+	m->vertices[4] = dvec3(l/2,-l/2,-l/2);
+	m->vertices[5] = dvec3(l/2,l/2,-l/2);
+	m->vertices[6] = dvec3(-l/2,-l/2,-l/2);
+	m->vertices[7] = dvec3(-l/2,l/2,-l/2);
+
+
+
+	return m;
+}
+
+Mesh * Mesh::generaDragon(GLuint numVert)
+{
+	double PR1 = 0.787473;
+	double PR2 = 0.212527;
+	Mesh* m = new Mesh();
+	m->type = GL_POINTS;
+	m->numVertices = numVert;
+	m->vertices = new dvec3[m->numVertices];
+
+
+	m->vertices[0] = dvec3(0.0,0.0,0.0);
+
+	for (int i = 1; i < numVert; i++) {
+		double azar = rand() / double(RAND_MAX);
+		if (azar < PR1) {
+			m->vertices[i] = dvec3(0.824074 * m->vertices[i - 1].x + 0.281482 * m->vertices[i - 1].y - 0.882290,
+				-0.212346 * m->vertices[i - 1].x + 0.864198 *m->vertices[i - 1].y - 0.110607,0.0);
+		}
+		else {
+			m->vertices[i] = dvec3(0.088272 * m->vertices[i - 1].x + 0.520988 * m->vertices[i - 1].y + 0.785360,
+				-0.463889 * m->vertices[i - 1].x - 0.377778 * m->vertices[i - 1].y + 8.095795,0.0);
+		}
+		m->vertices[i] = dvec3(8 * (m->vertices[i].x - 10), 8 * (m->vertices[i].y - 35), 0.0);
+	}
+
+	return m;
+
+
+}

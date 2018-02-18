@@ -16,7 +16,9 @@ void Scene::init()
   objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangulo(200.0)); triangulo solo con lineas
   //objetos.push_back(new TrianguloRGB(200.0));
-  objetos.push_back(new TriPyramid(200.0, 500.0));
+  //objetos.push_back(new TriPyramid(200.0, 500.0));
+  //objetos.push_back(new ContCubo(200.0));
+  objetos.push_back(new Dragon(30000));
   
 }
 //-------------------------------------------------------------------------

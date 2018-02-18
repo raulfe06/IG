@@ -80,3 +80,33 @@ void EjesRGB::draw()
   glLineWidth(1);
 }
 //-------------------------------------------------------------------------
+
+ContCubo::ContCubo(GLdouble l) : Entity()
+{
+	mesh = Mesh::generateContCubo(l);
+}
+
+void ContCubo::draw()
+{
+	glColor3f(0.0, 0.0, 0.0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth(2);
+	mesh->draw();
+	glLineWidth(1);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+Dragon::Dragon(GLuint numVert)
+{
+	mesh = Mesh::generaDragon(numVert);
+}
+
+void Dragon::draw()
+{
+	glColor3f(0.0, 0.0, 0.0);
+
+	glPointSize(2);
+	mesh->draw();
+	glPointSize(1);
+
+}

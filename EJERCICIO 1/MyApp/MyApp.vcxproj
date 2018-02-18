@@ -67,6 +67,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ContCubo.cpp" />
+    <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Entities.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -77,6 +79,8 @@
     <ClCompile Include="TriPyramid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContCubo.h" />
+    <ClInclude Include="Dragon.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Scene.h" />

@@ -53,5 +53,19 @@ public:
 	TriPyramid(GLdouble r, GLdouble h);
 	virtual void draw();
 };
+class ContCubo : public Entity
+{
+public:
+	ContCubo(GLdouble l);
+	virtual void draw();
+};
+
+class Dragon : public Entity
+{
+public:
+	Dragon(GLuint numVert);
+	virtual void draw();
+};
+
 
 #endif //_H_Entities_H_
