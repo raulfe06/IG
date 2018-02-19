@@ -108,7 +108,7 @@ Mesh * Mesh::generateContCubo(GLdouble l)
 
 	Mesh* m = new Mesh();
 	m->type = GL_TRIANGLE_STRIP;
-	m->numVertices = 8;
+	m->numVertices = 10;
 	m->vertices = new dvec3[m->numVertices];
 
 	m->vertices[0] = dvec3(-l/2,-l/2,l/2);
@@ -119,6 +119,8 @@ Mesh * Mesh::generateContCubo(GLdouble l)
 	m->vertices[5] = dvec3(l/2,l/2,-l/2);
 	m->vertices[6] = dvec3(-l/2,-l/2,-l/2);
 	m->vertices[7] = dvec3(-l/2,l/2,-l/2);
+	m->vertices[8] = dvec3(-l / 2, -l / 2, l / 2);
+	m->vertices[9] = dvec3(-l / 2, l / 2, l / 2);
 
 
 
@@ -147,7 +149,7 @@ Mesh * Mesh::generaDragon(GLuint numVert)
 			m->vertices[i] = dvec3(0.088272 * m->vertices[i - 1].x + 0.520988 * m->vertices[i - 1].y + 0.785360,
 				-0.463889 * m->vertices[i - 1].x - 0.377778 * m->vertices[i - 1].y + 8.095795,0.0);
 		}
-		m->vertices[i] = dvec3(8 * (m->vertices[i].x - 10), 8 * (m->vertices[i].y - 35), 0.0);
+		//m->vertices[i] = dvec3(8 * (m->vertices[i].x - 10), 8 * (m->vertices[i].y - 35), 0.0);
 	}
 
 	return m;

@@ -67,27 +67,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ContCubo.cpp" />
-    <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Entities.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Triangulo.cpp" />
-    <ClCompile Include="TrianguloRGB.cpp" />
-    <ClCompile Include="TriPyramid.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ContCubo.h" />
-    <ClInclude Include="Dragon.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Triangulo.h" />
-    <ClInclude Include="TrianguloRGB.h" />
-    <ClInclude Include="TriPyramid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
