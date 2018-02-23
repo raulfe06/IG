@@ -40,6 +40,9 @@ Triangulo::Triangulo(GLdouble r) : Entity()
 }
 TrianguloRGB::TrianguloRGB(GLdouble r) : Entity(){
 	mesh = Mesh::generateTriangleRGB(r);
+	/*modelMat = translate(modelMat, dvec3(200, 200, 0));
+	modelMat = rotate(modelMat,radians(45.0),dvec3(0.0,0.0,1.0));
+	modelMat = scale(modelMat, dvec3(1.5, 1.5, 1));*/
 }
 TriPyramid::TriPyramid(GLdouble r,GLdouble h) : Entity(){
 	mesh = Mesh::generateTriPyramid(r, h);
@@ -109,4 +112,57 @@ void Dragon::draw()
 	mesh->draw();
 	glPointSize(1);
 
+}
+
+Diabolo::Diabolo() : Entity()
+{
+	mesh = Mesh::generateTriPyramid(200.0, 500.0);
+}
+
+void Diabolo::draw()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth(2);
+	mesh->draw();
+	glLineWidth(1);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void Diabolo::render(glm::dmat4 const & modelViewMat)
+{
+
+	glMatrixMode(GL_MODELVIEW);
+	
+	dmat4 aMat = modelViewMat * modelMat;
+	
+	aMat = translate(aMat, dvec3(0, 0, -500.0));
+
+	glLoadMatrixd(value_ptr(aMat));
+	
+	glColor3f(0, 0.0, 1);
+	draw();
+
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 0, 1));
+	glLoadMatrixd(value_ptr(aMat));
+
+	glColor3f(0, 1, 0);
+	draw();
+
+	
+	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
+	aMat = translate(aMat, dvec3(0.0, 0.0, -1000.0));
+	glLoadMatrixd(value_ptr(aMat));
+	glColor3f(1, 0, 0);
+	draw();
+	
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 0, 1));
+	glLoadMatrixd(value_ptr(aMat));
+	glColor3f(0,0,0);
+	draw();
+	aMat = modelViewMat * modelMat;
+
+
+	
+	
+	
 }

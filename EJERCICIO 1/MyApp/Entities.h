@@ -21,6 +21,7 @@ protected:
   glm::dmat4 modelMat;
   virtual void draw();
   virtual void setMvM(glm::dmat4 const& modelViewMat);
+ 
 };
 
 //-------------------------------------------------------------------------
@@ -65,6 +66,15 @@ class Dragon : public Entity
 public:
 	Dragon(GLuint numVert);
 	virtual void draw();
+};
+class Diabolo : public Entity
+{
+public:
+	Diabolo();
+	virtual void draw();
+	void render(glm::dmat4 const& modelViewMat);
+private:
+	double angle;
 };
 
 
