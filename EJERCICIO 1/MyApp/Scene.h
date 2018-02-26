@@ -16,11 +16,13 @@ public:
 	  ~Scene();
     void init();
 	  void render();    
+	  Entity* getObject(int num) const { return objetos[num]; };
 	  
 protected:
 	  Camera* camera;
 	  Viewport* viewPort_;
 	  std::vector<Entity*> objetos;
+
 };
 
 //-------------------------------------------------------------------------

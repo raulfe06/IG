@@ -107,6 +107,9 @@ void key(unsigned char key, int x, int y)
   case 'o':
 	  camera.setAZ();
 	  break;
+  case 'a':
+	  dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
+	  break;
   default:
     need_redisplay = false;
     break;

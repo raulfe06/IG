@@ -130,7 +130,7 @@ void Diabolo::draw()
 
 void Diabolo::render(glm::dmat4 const & modelViewMat)
 {
-
+	modelMat = rotate(modelMat, radians(angle_), dvec3(0.0, 0.0, 1.0));
 	glMatrixMode(GL_MODELVIEW);
 	
 	dmat4 aMat = modelViewMat * modelMat;
@@ -159,7 +159,7 @@ void Diabolo::render(glm::dmat4 const & modelViewMat)
 	glLoadMatrixd(value_ptr(aMat));
 	glColor3f(0,0,0);
 	draw();
-	aMat = modelViewMat * modelMat;
+	//aMat = modelViewMat * modelMat;
 
 
 	

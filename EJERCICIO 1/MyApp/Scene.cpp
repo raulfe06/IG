@@ -18,7 +18,7 @@ void Scene::init()
   //objetos.push_back(new TrianguloRGB(200.0));
   //objetos.push_back(new TriPyramid(200.0, 500.0));
   //objetos.push_back(new ContCubo(200.0));
-  //objetos.push_back(new Dragon(30000));
+ // objetos.push_back(new Dragon(30000));
   objetos.push_back(new Diabolo());
 }
 //-------------------------------------------------------------------------
@@ -43,6 +43,7 @@ void Scene::render()
 	}
 
   //PARA DIVIDIRLO EN 4 VIEWPORTS
+
  /* double w = viewPort_->getW();
   double h = viewPort_->getH();
   viewPort_->setSize(w/ 2, h/ 2);

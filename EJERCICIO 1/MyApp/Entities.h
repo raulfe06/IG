@@ -73,8 +73,9 @@ public:
 	Diabolo();
 	virtual void draw();
 	void render(glm::dmat4 const& modelViewMat);
+	void setAngle(int a) { angle_ = a; };
 private:
-	double angle;
+	double angle_ = 0;
 };
 
 

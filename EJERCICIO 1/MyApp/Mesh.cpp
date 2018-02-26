@@ -136,7 +136,6 @@ Mesh * Mesh::generaDragon(GLuint numVert)
 	m->numVertices = numVert;
 	m->vertices = new dvec3[m->numVertices];
 
-
 	m->vertices[0] = dvec3(0.0,0.0,0.0);
 
 	for (int i = 1; i < numVert; i++) {
