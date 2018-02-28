@@ -22,8 +22,16 @@ public:
   static Mesh* generateTriPyramid(GLdouble r, GLdouble h);
   static Mesh* generateContCubo(GLdouble l);
   static Mesh* generaDragon(GLuint numVert);
+  static Mesh* generateRectangle(GLdouble w, GLdouble h);
+  static Mesh* generaPoliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble
+	  incrAng, GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 
-   
+  static glm::dvec3 mover(GLdouble x, GLdouble y, GLdouble ang, GLdouble lon);
+
+ 
+
+
+
 protected:
    GLuint numVertices = 0;
    GLuint type = GL_POINTS;

@@ -1,5 +1,5 @@
 #include "Mesh.h"
-
+#include <gtc/constants.hpp>
 using namespace glm;
 
 //-------------------------------------------------------------------------
@@ -154,4 +154,42 @@ Mesh * Mesh::generaDragon(GLuint numVert)
 	return m;
 
 
+}
+Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) {
+	Mesh* m = new Mesh();
+	m->type = GL_TRIANGLE_STRIP;
+	m->numVertices = 5;
+	m->vertices = new dvec3[m->numVertices];	
+	m->vertices[0] = dvec3(-w / 2, -h / 2, 0.0);
+	m->vertices[1] = dvec3(w / 2, h / 2,0.0);
+	m->vertices[2] = dvec3(w / 2, -h / 2, 0.0);
+	m->vertices[3] = dvec3(-w/ 2, h / 2, 0.0);
+	m->vertices[4] = dvec3(-w / 2, -h / 2, 0.0);
+	
+	return m;
+}
+
+Mesh* Mesh::generaPoliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble incrAng, GLdouble ladoIni, GLdouble incrLado, GLuint numVert)
+{
+	Mesh* m = new Mesh();
+	m->type = GL_LINE_STRIP;
+	m->numVertices = numVert;
+	m->vertices = new dvec3[m->numVertices];
+	GLdouble lado = ladoIni;
+	GLdouble angle = angIni;
+
+	m->vertices[0] = dvec3(verIni, 0.0);
+
+	for (int i = 1; i < numVert; i++)
+	{
+		m->vertices[i] = dvec3(mover(m->vertices[i-1].x, m->vertices[i - 1].y,angle,lado));
+		lado += incrLado;
+		angle += incrAng;
+		
+	}
+	return m;
+}
+dvec3 Mesh::mover(GLdouble x, GLdouble y, GLdouble ang, GLdouble lon)
+{
+	return dvec3(x + lon * cos(ang), y + lon * sin(ang),0.0);
 }

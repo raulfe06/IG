@@ -13,13 +13,15 @@ void Scene::init()
   // textures  
 
   // objets
-  objetos.push_back(new EjesRGB(200.0));
+ //objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangulo(200.0)); //triangulo solo con lineas
   //objetos.push_back(new TrianguloRGB(200.0));
   //objetos.push_back(new TriPyramid(200.0, 500.0));
   //objetos.push_back(new ContCubo(200.0));
- // objetos.push_back(new Dragon(30000));
+	objetos.push_back(new Dragon(30000));
   objetos.push_back(new Diabolo());
+  objetos.push_back(new Cubo(300.0, 300.0));
+ objetos.push_back(new Poliespiral(glm::dvec2(0.0, 0.0), 0, 89.5, 0.5, 0.5, 100.0));
 }
 //-------------------------------------------------------------------------
 
@@ -37,14 +39,13 @@ void Scene::render()
 {
   glMatrixMode(GL_MODELVIEW);
   
-	for each (Entity* it in objetos)
+	/*for each (Entity* it in objetos)
 	{
 		it->render(camera->getViewMat());
-	}
+	}*/
 
   //PARA DIVIDIRLO EN 4 VIEWPORTS
-
- /* double w = viewPort_->getW();
+	double w = viewPort_->getW();
   double h = viewPort_->getH();
   viewPort_->setSize(w/ 2, h/ 2);
   viewPort_->setPosition(0, 0);
@@ -55,7 +56,7 @@ void Scene::render()
   objetos[2]->render(camera->getViewMat());
   viewPort_->setPosition(w/ 2, h/2);
   objetos[3]->render(camera->getViewMat());
-  viewPort_->setSize(w, h);*/
+  viewPort_->setSize(w, h);
 
 }
 //-------------------------------------------------------------------------

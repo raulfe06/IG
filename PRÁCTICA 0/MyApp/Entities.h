@@ -18,6 +18,7 @@ public:
   
 protected:
   Mesh* mesh = nullptr;
+  Mesh* mesh2 = nullptr;
   glm::dmat4 modelMat;
   virtual void draw();
   virtual void setMvM(glm::dmat4 const& modelViewMat);
@@ -77,6 +78,18 @@ public:
 private:
 	double angle_ = 0;
 };
+class Cubo : public Entity
+{
+public:
+	Cubo(GLdouble w, GLdouble h);
+	void render(glm::dmat4 const& modelViewMat);
 
+};
+class Poliespiral : public Entity
+{
+public:
+	Poliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble incrAng, GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
+	virtual void draw();
+};
 
 #endif //_H_Entities_H_
