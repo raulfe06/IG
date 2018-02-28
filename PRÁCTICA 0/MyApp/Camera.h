@@ -13,14 +13,14 @@ public:
   ~Viewport() { };
 
   void setSize(GLsizei aw, GLsizei ah);
- 
+  void setPosition(GLint x, GLint y);
   GLsizei getX() { return x; };
   GLsizei getY() { return y; };
   GLsizei getW() { return w; };
   GLsizei getH() { return h; };
 
 protected:
-  GLint x=0, y=0;
+  GLint x, y;
   GLsizei w, h;  
   void set();
 };

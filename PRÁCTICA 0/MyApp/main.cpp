@@ -20,7 +20,7 @@ Viewport viewPort(800, 600);
 Camera camera(&viewPort);    
 
 // Scene entities
-Scene scene(&camera);   
+Scene scene(&camera,&viewPort);   
 
 //----------- Callbacks ----------------------------------------------------
 
@@ -106,6 +106,9 @@ void key(unsigned char key, int x, int y)
 	  break;
   case 'o':
 	  camera.setAZ();
+	  break;
+  case 'a':
+	  dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
 	  break;
   default:
     need_redisplay = false;
