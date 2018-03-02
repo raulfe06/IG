@@ -5,6 +5,7 @@
 #include <GL/freeglut.h>
 #include <glm.hpp>
 #include "Mesh.h"
+#include "Texture.h"
 
 //-------------------------------------------------------------------------
 
@@ -20,7 +21,8 @@ protected:
   Mesh* mesh = nullptr;
   Mesh* mesh2 = nullptr;
   glm::dmat4 modelMat;
-  virtual void draw();
+  Texture texture;
+  virtual void draw();	
   virtual void setMvM(glm::dmat4 const& modelViewMat);
  
 };
@@ -91,5 +93,16 @@ public:
 	Poliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble incrAng, GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 	virtual void draw();
 };
-
+class RectangleTex : public Entity
+{
+public:
+	RectangleTex(GLdouble w, GLdouble h);
+	virtual void draw();
+};
+class CuboTex : public Entity
+{
+public:
+	CuboTex(GLdouble l);
+	virtual void draw();
+};
 #endif //_H_Entities_H_

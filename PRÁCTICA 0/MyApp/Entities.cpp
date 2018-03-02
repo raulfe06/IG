@@ -211,3 +211,31 @@ void Poliespiral::draw()
 	glLineWidth(1);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
+
+RectangleTex::RectangleTex(GLdouble w, GLdouble h)
+{
+	mesh = Mesh::generateRectangleTex(w, h);
+	texture.load("..//Bmps//Zelda.bmp", 255);
+
+}
+
+void RectangleTex::draw()
+{
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+}
+
+CuboTex::CuboTex(GLdouble l)
+{
+	mesh = Mesh::generateCuboTex(l);
+	texture.load("..//Bmps//Zelda.bmp", 255);
+
+}
+
+void CuboTex::draw()
+{
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+}
