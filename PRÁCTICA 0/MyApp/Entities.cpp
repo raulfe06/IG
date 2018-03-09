@@ -226,14 +226,80 @@ void RectangleTex::draw()
 	texture.unbind();
 }
 
-CuboTex::CuboTex(GLdouble l)
+CuboTex::CuboTex(GLdouble w, GLdouble h )
 {
-	mesh = Mesh::generateCuboTex(l);
-	texture.load("..//Bmps//Zelda.bmp", 255);
+	mesh = Mesh::generateRectangleTex(w, h);
+	texture.load("..//Bmps//container.bmp", 255);
+	mesh2 = Mesh::generateCuboTex(300.0);
+	texture2.load("..//Bmps//chuches.bmp", 255);
 
 }
+void CuboTex::render(glm::dmat4 const & modelViewMat)
+{
+	glEnable(GL_CULL_FACE);
 
-void CuboTex::draw()
+	dmat4 aMat = modelViewMat * modelMat;
+	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0)); //Base
+	aMat = translate(aMat, dvec3(0.0, 0.0, -150));
+	glLoadMatrixd(value_ptr(aMat));
+
+	glCullFace(GL_FRONT);
+	//"Método draw de cada malla"
+	texture.bind(); 
+	mesh->draw(); // Base
+	texture.unbind();
+
+	glCullFace(GL_BACK);
+	//"Método draw de cada malla"
+	texture2.bind();
+	mesh->draw(); // Base
+	texture2.unbind();
+
+	aMat = modelViewMat * modelMat;
+	aMat = translate(aMat, dvec3(0.0, 255.0, -42.0)); //Tapa
+	aMat = rotate(aMat, radians(45.0), dvec3(1, 0, 0));
+	glLoadMatrixd(value_ptr(aMat));
+
+	glCullFace(GL_FRONT);
+	//"Método draw de cada malla"
+	texture.bind();
+	mesh->draw(); // Tapa
+	texture.unbind();
+
+	glCullFace(GL_BACK);
+	//"Método draw de cada malla"
+	texture2.bind();
+	mesh->draw(); // Tapa
+	texture2.unbind();
+
+
+	aMat = modelViewMat * modelMat;
+	glLoadMatrixd(value_ptr(aMat));
+
+	glCullFace(GL_FRONT);
+	//"Método draw de cada malla"
+	texture.bind();
+	mesh2->draw(); // Base
+	texture.unbind();
+
+	glCullFace(GL_BACK);
+	//"Método draw de cada malla"
+	texture2.bind();
+	mesh2->draw(); // Base
+	texture2.unbind();
+
+	aMat = modelViewMat * modelMat;
+
+	glDisable(GL_CULL_FACE);
+}
+
+PyramideTex::PyramideTex(GLdouble r, GLdouble h)
+{
+	mesh = Mesh::generatePyramidTex(r,h);
+	texture.load("..//Bmps//container.bmp", 255);
+}
+
+void PyramideTex::draw()
 {
 	texture.bind();
 	Entity::draw();

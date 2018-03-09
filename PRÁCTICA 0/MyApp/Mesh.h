@@ -30,6 +30,8 @@ public:
 
   static Mesh* generateRectangleTex(GLdouble w, GLdouble h);
   static Mesh* generateCuboTex(GLdouble l);
+  static Mesh* generatePyramidTex(GLdouble r,GLdouble h);
+
 
 
  

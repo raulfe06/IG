@@ -85,7 +85,6 @@ class Cubo : public Entity
 public:
 	Cubo(GLdouble w, GLdouble h);
 	void render(glm::dmat4 const& modelViewMat);
-
 };
 class Poliespiral : public Entity
 {
@@ -102,7 +101,14 @@ public:
 class CuboTex : public Entity
 {
 public:
-	CuboTex(GLdouble l);
+	CuboTex(GLdouble w,GLdouble h);
+	void render(glm::dmat4 const& modelViewMat);
+	Texture texture2;
+};
+class PyramideTex : public Entity
+{
+public:
+	PyramideTex(GLdouble r,GLdouble h);
 	virtual void draw();
 };
 #endif //_H_Entities_H_

@@ -116,18 +116,18 @@ Mesh * Mesh::generateContCubo(GLdouble l)
 	Mesh* m = new Mesh();
 	m->type = GL_TRIANGLE_STRIP;
 	m->numVertices = 10;
-	m->vertices = new dvec3[m->numVertices];
 
-	m->vertices[0] = dvec3(-l/2,-l/2,l/2);
-	m->vertices[1] = dvec3(-l/2,l/2,l/2);
-	m->vertices[2] = dvec3(l/2,-l/2,l/2);
-	m->vertices[3] = dvec3(l/2,l/2,l/2);
-	m->vertices[4] = dvec3(l/2,-l/2,-l/2);
-	m->vertices[5] = dvec3(l/2,l/2,-l/2);
-	m->vertices[6] = dvec3(-l/2,-l/2,-l/2);
-	m->vertices[7] = dvec3(-l/2,l/2,-l/2);
-	m->vertices[8] = dvec3(-l / 2, -l / 2, l / 2);
-	m->vertices[9] = dvec3(-l / 2, l / 2, l / 2);
+	m->vertices = new dvec3[m->numVertices];
+	m->vertices[0] = dvec3(-l / 2, l / 2, -l / 2);
+	m->vertices[1] = dvec3(-l / 2, -l / 2, -l / 2);
+	m->vertices[2] = dvec3(l / 2, l / 2, -l / 2);
+	m->vertices[3] = dvec3(l / 2, -l / 2, -l / 2);
+	m->vertices[4] = dvec3(l / 2, l / 2, l / 2);
+	m->vertices[5] = dvec3(l / 2, -l / 2, l / 2);
+	m->vertices[6] = dvec3(-l / 2, l / 2, l / 2);
+	m->vertices[7] = dvec3(-l / 2, -l / 2, l / 2);
+	m->vertices[8] = dvec3(-l / 2, l / 2, -l / 2);
+	m->vertices[9] = dvec3(-l / 2, -l / 2, -l / 2);
 
 
 
@@ -222,12 +222,26 @@ Mesh * Mesh::generateCuboTex(GLdouble l)
 	m->texCoords[1] = dvec2(0, 0);
 	m->texCoords[2] = dvec2(1, 1);
 	m->texCoords[3] = dvec2(1, 0);
-	m->texCoords[4] = dvec2(0, 1);
-	m->texCoords[5] = dvec2(0, 0);
-	m->texCoords[6] = dvec2(1, 1);
-	m->texCoords[7] = dvec2(1, 0);
-	m->texCoords[8] = dvec2(0, 1);
-	m->texCoords[9] = dvec2(0, 0);
+	m->texCoords[4] = dvec2(2, 1);
+	m->texCoords[5] = dvec2(2, 0);
+	m->texCoords[6] = dvec2(3, 1);
+	m->texCoords[7] = dvec2(3, 0);
+	m->texCoords[8] = dvec2(4, 1);
+	m->texCoords[9] = dvec2(4, 0);
+
 	
+	return m;
+}
+
+Mesh * Mesh::generatePyramidTex(GLdouble r, GLdouble h)
+{
+	Mesh *m = generateTriPyramid(r,h);
+	m->texCoords = new dvec2[m->numVertices];
+	m->texCoords[0] = dvec2(0.5,0.5);
+	m->texCoords[1] = dvec2(0.5,1);
+	m->texCoords[2] = dvec2(1,0.0);
+	m->texCoords[3] = dvec2(0.0, 0.0);
+	m->texCoords[4] = dvec2(0.5, 1);
+
 	return m;
 }
