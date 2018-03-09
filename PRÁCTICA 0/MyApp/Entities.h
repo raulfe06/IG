@@ -111,4 +111,18 @@ public:
 	PyramideTex(GLdouble r,GLdouble h);
 	virtual void draw();
 };
+class DiaboloTex : public Entity
+{
+public:
+	DiaboloTex();
+	void render(glm::dmat4 const& modelViewMat);
+	virtual void draw();
+};
+class Suelo : public Entity
+{
+public:
+	Suelo();
+	//void render(glm::dmat4 const& modelViewMat);
+	virtual void draw();
+};
 #endif //_H_Entities_H_

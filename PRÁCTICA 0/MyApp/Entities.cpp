@@ -296,10 +296,66 @@ void CuboTex::render(glm::dmat4 const & modelViewMat)
 PyramideTex::PyramideTex(GLdouble r, GLdouble h)
 {
 	mesh = Mesh::generatePyramidTex(r,h);
-	texture.load("..//Bmps//container.bmp", 255);
+	texture.load("..//Bmps//container.bmp", 255);texture.bind();
+	Entity::draw();
+	texture.unbind();
 }
 
 void PyramideTex::draw()
+{
+	
+}
+
+DiaboloTex::DiaboloTex()
+{
+	mesh = Mesh::generatePyramidTex(200.0, 500.0);
+	texture.load("..//Bmps//floris.bmp", 255);
+}
+
+void DiaboloTex::render(glm::dmat4 const & modelViewMat)
+{
+	glMatrixMode(GL_MODELVIEW);
+
+	dmat4 aMat = modelViewMat * modelMat;
+
+	aMat = translate(aMat, dvec3(0, 0, -500.0));
+
+	glLoadMatrixd(value_ptr(aMat));
+
+	draw();
+
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 0, 1));
+	glLoadMatrixd(value_ptr(aMat));
+
+	draw();
+
+
+	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
+	aMat = translate(aMat, dvec3(0.0, 0.0, -1000.0));
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 0, 1));
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+	aMat = modelViewMat * modelMat;
+}
+
+void DiaboloTex::draw()
+{
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+}
+
+Suelo::Suelo()
+{
+	mesh = Mesh::generateRectangleTex(1000.0, 1000.0);
+	texture.load("..//Bmps//baldosaC.bmp");
+	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0));
+}
+
+void Suelo::draw()
 {
 	texture.bind();
 	Entity::draw();

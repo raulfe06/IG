@@ -116,7 +116,6 @@ Mesh * Mesh::generateContCubo(GLdouble l)
 	Mesh* m = new Mesh();
 	m->type = GL_TRIANGLE_STRIP;
 	m->numVertices = 10;
-
 	m->vertices = new dvec3[m->numVertices];
 	m->vertices[0] = dvec3(-l / 2, l / 2, -l / 2);
 	m->vertices[1] = dvec3(-l / 2, -l / 2, -l / 2);
@@ -165,7 +164,7 @@ Mesh * Mesh::generaDragon(GLuint numVert)
 Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) {
 	Mesh* m = new Mesh();
 	m->type = GL_TRIANGLE_STRIP;
-	m->numVertices = 5;
+	m->numVertices = 4;
 	m->vertices = new dvec3[m->numVertices];	
 	m->vertices[0] = dvec3(-w / 2, h / 2, 0.0);
 	m->vertices[1] = dvec3(-w / 2, -h / 2,0.0);
