@@ -20,15 +20,8 @@ void Mesh::draw()
       glEnableClientState(GL_COLOR_ARRAY);
       glColorPointer(4, GL_DOUBLE, 0, colors);   // number of coordinates per color, type of each coordinate 
     }
-	if (texCoords != nullptr) {
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_DOUBLE, 0, texCoords);
-	}
 	
     glDrawArrays(type, 0, numVertices);   // kind of primitives, first, count
-
-	
-	
 
 	  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
@@ -117,16 +110,17 @@ Mesh * Mesh::generateContCubo(GLdouble l)
 	m->type = GL_TRIANGLE_STRIP;
 	m->numVertices = 10;
 	m->vertices = new dvec3[m->numVertices];
-	m->vertices[0] = dvec3(-l / 2, l / 2, -l / 2);
-	m->vertices[1] = dvec3(-l / 2, -l / 2, -l / 2);
-	m->vertices[2] = dvec3(l / 2, l / 2, -l / 2);
-	m->vertices[3] = dvec3(l / 2, -l / 2, -l / 2);
-	m->vertices[4] = dvec3(l / 2, l / 2, l / 2);
-	m->vertices[5] = dvec3(l / 2, -l / 2, l / 2);
-	m->vertices[6] = dvec3(-l / 2, l / 2, l / 2);
-	m->vertices[7] = dvec3(-l / 2, -l / 2, l / 2);
-	m->vertices[8] = dvec3(-l / 2, l / 2, -l / 2);
-	m->vertices[9] = dvec3(-l / 2, -l / 2, -l / 2);
+
+	m->vertices[0] = dvec3(-l/2,-l/2,l/2);
+	m->vertices[1] = dvec3(-l/2,l/2,l/2);
+	m->vertices[2] = dvec3(l/2,-l/2,l/2);
+	m->vertices[3] = dvec3(l/2,l/2,l/2);
+	m->vertices[4] = dvec3(l/2,-l/2,-l/2);
+	m->vertices[5] = dvec3(l/2,l/2,-l/2);
+	m->vertices[6] = dvec3(-l/2,-l/2,-l/2);
+	m->vertices[7] = dvec3(-l/2,l/2,-l/2);
+	m->vertices[8] = dvec3(-l / 2, -l / 2, l / 2);
+	m->vertices[9] = dvec3(-l / 2, l / 2, l / 2);
 
 
 
@@ -164,12 +158,13 @@ Mesh * Mesh::generaDragon(GLuint numVert)
 Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) {
 	Mesh* m = new Mesh();
 	m->type = GL_TRIANGLE_STRIP;
-	m->numVertices = 4;
+	m->numVertices = 5;
 	m->vertices = new dvec3[m->numVertices];	
-	m->vertices[0] = dvec3(-w / 2, h / 2, 0.0);
-	m->vertices[1] = dvec3(-w / 2, -h / 2,0.0);
-	m->vertices[2] = dvec3(w / 2, h / 2, 0.0);
-	m->vertices[3] = dvec3(w/ 2, -h / 2, 0.0);
+	m->vertices[0] = dvec3(-w / 2, -h / 2, 0.0);
+	m->vertices[1] = dvec3(w / 2, h / 2,0.0);
+	m->vertices[2] = dvec3(w / 2, -h / 2, 0.0);
+	m->vertices[3] = dvec3(-w/ 2, h / 2, 0.0);
+	m->vertices[4] = dvec3(-w / 2, -h / 2, 0.0);
 	
 	return m;
 }
@@ -197,50 +192,4 @@ Mesh* Mesh::generaPoliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble incrA
 dvec3 Mesh::mover(GLdouble x, GLdouble y, GLdouble ang, GLdouble lon)
 {
 	return dvec3(x + lon * cos(ang), y + lon * sin(ang),0.0);
-}
-Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
-{
-	Mesh *m = generateRectangle(w, h);
-	m->texCoords = new dvec2[m->numVertices];
-	m->texCoords[0] = dvec2(0, 1);
-	m->texCoords[1] = dvec2(0, 0);
-	m->texCoords[2] = dvec2(1, 1);
-	m->texCoords[3] = dvec2(1, 0);
-	return m;
-}
-
-Mesh * Mesh::generateCuboTex(GLdouble l)
-{
-	/* - Ponemos 10 vértices es decir, los mismo vertices que los de la malla 
-	   - En este caso como se pintan como cuadrados seguidos no tenemos que modificar 
-	    las coordenadas de las texturas(cubo desmontado).
-	*/
-	Mesh *m = generateContCubo(l);
-	m->texCoords = new dvec2[m->numVertices];
-	m->texCoords[0] = dvec2(0, 1);
-	m->texCoords[1] = dvec2(0, 0);
-	m->texCoords[2] = dvec2(1, 1);
-	m->texCoords[3] = dvec2(1, 0);
-	m->texCoords[4] = dvec2(2, 1);
-	m->texCoords[5] = dvec2(2, 0);
-	m->texCoords[6] = dvec2(3, 1);
-	m->texCoords[7] = dvec2(3, 0);
-	m->texCoords[8] = dvec2(4, 1);
-	m->texCoords[9] = dvec2(4, 0);
-
-	
-	return m;
-}
-
-Mesh * Mesh::generatePyramidTex(GLdouble r, GLdouble h)
-{
-	Mesh *m = generateTriPyramid(r,h);
-	m->texCoords = new dvec2[m->numVertices];
-	m->texCoords[0] = dvec2(0.5,0.5);
-	m->texCoords[1] = dvec2(0.5,1);
-	m->texCoords[2] = dvec2(1,0.0);
-	m->texCoords[3] = dvec2(0.0, 0.0);
-	m->texCoords[4] = dvec2(0.5, 1);
-
-	return m;
 }

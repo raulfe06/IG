@@ -5,7 +5,6 @@
 #include <GL/freeglut.h>
 #include <glm.hpp>
 #include "Mesh.h"
-#include "Texture.h"
 
 //-------------------------------------------------------------------------
 
@@ -21,8 +20,7 @@ protected:
   Mesh* mesh = nullptr;
   Mesh* mesh2 = nullptr;
   glm::dmat4 modelMat;
-  Texture texture;
-  virtual void draw();	
+  virtual void draw();
   virtual void setMvM(glm::dmat4 const& modelViewMat);
  
 };
@@ -85,6 +83,7 @@ class Cubo : public Entity
 public:
 	Cubo(GLdouble w, GLdouble h);
 	void render(glm::dmat4 const& modelViewMat);
+
 };
 class Poliespiral : public Entity
 {
@@ -92,37 +91,5 @@ public:
 	Poliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble incrAng, GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 	virtual void draw();
 };
-class RectangleTex : public Entity
-{
-public:
-	RectangleTex(GLdouble w, GLdouble h);
-	virtual void draw();
-};
-class CuboTex : public Entity
-{
-public:
-	CuboTex(GLdouble w,GLdouble h);
-	void render(glm::dmat4 const& modelViewMat);
-	Texture texture2;
-};
-class PyramideTex : public Entity
-{
-public:
-	PyramideTex(GLdouble r,GLdouble h);
-	virtual void draw();
-};
-class DiaboloTex : public Entity
-{
-public:
-	DiaboloTex();
-	void render(glm::dmat4 const& modelViewMat);
-	virtual void draw();
-};
-class Suelo : public Entity
-{
-public:
-	Suelo();
-	//void render(glm::dmat4 const& modelViewMat);
-	virtual void draw();
-};
+
 #endif //_H_Entities_H_

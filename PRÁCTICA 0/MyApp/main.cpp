@@ -110,12 +110,6 @@ void key(unsigned char key, int x, int y)
   case 'a':
 	  dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
 	  break;
-  case 'g':
-	  /*Texture tex;
-	  tex.load(...)
-	  tex.save(...)*/
-	  break;
-
   default:
     need_redisplay = false;
     break;

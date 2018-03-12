@@ -28,12 +28,6 @@ public:
 
   static glm::dvec3 mover(GLdouble x, GLdouble y, GLdouble ang, GLdouble lon);
 
-  static Mesh* generateRectangleTex(GLdouble w, GLdouble h);
-  static Mesh* generateCuboTex(GLdouble l);
-  static Mesh* generatePyramidTex(GLdouble r,GLdouble h);
-
-
-
  
 
 
@@ -43,7 +37,6 @@ protected:
    GLuint type = GL_POINTS;
    glm::dvec3* vertices = nullptr;
    glm::dvec4* colors = nullptr;
-   glm::dvec2 * texCoords = nullptr;
 };
 
 //-------------------------------------------------------------------------
