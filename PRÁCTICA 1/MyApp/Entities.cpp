@@ -214,7 +214,7 @@ void Poliespiral::draw()
 
 RectangleTex::RectangleTex(GLdouble w, GLdouble h)
 {
-	mesh = Mesh::generateRectangleTex(w, h);
+	mesh = Mesh::generateRectangleTex(w, h,false,0);
 	texture.load("..//Bmps//Zelda.bmp", 255);
 
 }
@@ -228,10 +228,11 @@ void RectangleTex::draw()
 
 CuboTex::CuboTex(GLdouble w, GLdouble h )
 {
-	mesh = Mesh::generateRectangleTex(w, h);
+	mesh = Mesh::generateRectangleTex(w, h,false,1);
 	texture.load("..//Bmps//container.bmp", 255);
 	mesh2 = Mesh::generateCuboTex(300.0);
 	texture2.load("..//Bmps//chuches.bmp", 255);
+	modelMat = translate(modelMat, dvec3(-250, 150, 0));
 
 }
 void CuboTex::render(glm::dmat4 const & modelViewMat)
@@ -308,8 +309,9 @@ void PyramideTex::draw()
 
 DiaboloTex::DiaboloTex()
 {
-	mesh = Mesh::generatePyramidTex(200.0, 500.0);
+	mesh = Mesh::generatePyramidTex(100.0, 300.0);
 	texture.load("..//Bmps//floris.bmp", 255);
+	modelMat = translate(modelMat, dvec3(400, 200, 0));
 }
 
 void DiaboloTex::render(glm::dmat4 const & modelViewMat)
@@ -318,7 +320,7 @@ void DiaboloTex::render(glm::dmat4 const & modelViewMat)
 
 	dmat4 aMat = modelViewMat * modelMat;
 
-	aMat = translate(aMat, dvec3(0, 0, -500.0));
+	aMat = translate(aMat, dvec3(0, 0, -300.0));
 
 	glLoadMatrixd(value_ptr(aMat));
 
@@ -331,7 +333,7 @@ void DiaboloTex::render(glm::dmat4 const & modelViewMat)
 
 
 	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
-	aMat = translate(aMat, dvec3(0.0, 0.0, -1000.0));
+	aMat = translate(aMat, dvec3(0.0, 0.0, -600.0));
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
 
@@ -350,9 +352,10 @@ void DiaboloTex::draw()
 
 Suelo::Suelo()
 {
-	mesh = Mesh::generateRectangleTex(1000.0, 1000.0);
+	mesh = Mesh::generateRectangleTex(1500.0, 1500.0,true,1500.0/225.0);
 	texture.load("..//Bmps//baldosaC.bmp");
 	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0));
+	modelMat = translate(modelMat, dvec3(0, -100, 0));
 }
 
 void Suelo::draw()

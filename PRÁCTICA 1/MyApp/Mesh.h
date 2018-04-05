@@ -28,7 +28,7 @@ public:
 
   static glm::dvec3 mover(GLdouble x, GLdouble y, GLdouble ang, GLdouble lon);
 
-  static Mesh* generateRectangleTex(GLdouble w, GLdouble h);
+  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, bool repeating, double repeatingNumber);
   static Mesh* generateCuboTex(GLdouble l);
   static Mesh* generatePyramidTex(GLdouble r,GLdouble h);
 

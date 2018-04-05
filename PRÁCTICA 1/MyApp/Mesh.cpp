@@ -198,14 +198,17 @@ dvec3 Mesh::mover(GLdouble x, GLdouble y, GLdouble ang, GLdouble lon)
 {
 	return dvec3(x + lon * cos(ang), y + lon * sin(ang),0.0);
 }
-Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
+Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h,bool repeating,double repeatingNumber)
 {
 	Mesh *m = generateRectangle(w, h);
 	m->texCoords = new dvec2[m->numVertices];
-	m->texCoords[0] = dvec2(0, 1);
+	double aux = 1.0;
+	if (repeating) aux = repeatingNumber;
+
+	m->texCoords[0] = dvec2(0, aux);
 	m->texCoords[1] = dvec2(0, 0);
-	m->texCoords[2] = dvec2(1, 1);
-	m->texCoords[3] = dvec2(1, 0);
+	m->texCoords[2] = dvec2(aux, aux);
+	m->texCoords[3] = dvec2(aux, 0);
 	return m;
 }
 

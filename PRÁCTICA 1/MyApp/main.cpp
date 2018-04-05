@@ -22,12 +22,16 @@ Camera camera(&viewPort);
 // Scene entities
 Scene scene(&camera,&viewPort);   
 
+glm::dvec2 mCoord;
+
 //----------- Callbacks ----------------------------------------------------
 
 void display();
 void resize(int newWidth, int newHeight);
 void key(unsigned char key, int x, int y);
 void specialKey(int key, int x, int y);
+void mouse(int button, int state, int x, int y);
+void motion(int x, int y);
 
 //-------------------------------------------------------------------------
 
@@ -53,6 +57,8 @@ int main(int argc, char *argv[])
   glutKeyboardFunc(key);
   glutSpecialFunc(specialKey);
   glutDisplayFunc(display);
+  glutMouseFunc(mouse);
+  glutMotionFunc(motion);
  
   cout << glGetString(GL_VERSION) << '\n';
   cout << glGetString(GL_VENDOR) << '\n';
@@ -73,6 +79,7 @@ void display()   // double buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
   
   scene.render();   
+ 
     
   glutSwapBuffers();  
 }
@@ -90,6 +97,7 @@ void resize(int newWidth, int newHeight)
 void key(unsigned char key, int x, int y)
 {
   bool need_redisplay = true;
+  Texture tex;
 
   switch (key) {
   case 27:  // Escape key 
@@ -98,6 +106,24 @@ void key(unsigned char key, int x, int y)
   case '+': 
     camera.scale(+0.01);   // zoom in  
     break;
+  case 'a':
+	  camera.moveLR(-15);
+	  break;
+  case 'd':
+	  camera.moveLR(15);
+	  break;
+  case 'e':
+	  camera.moveFB(15);
+	  break;
+  case 'q':
+	  camera.moveFB(-15);
+	  break;
+  case 's':
+	  camera.moveUD(-15);
+	  break;
+  case 'w':
+	  camera.moveUD(15);
+	  break;
   case '-':
     camera.scale(-0.01);   // zoom out
     break;
@@ -107,13 +133,20 @@ void key(unsigned char key, int x, int y)
   case 'o':
 	  camera.setAZ();
 	  break;
-  case 'a':
-	  dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
+  case 'p':
+	 
+	  camera.setPrj();
+	  camera.orto = !camera.orto;
 	  break;
+  //case 'a':
+	 // dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
+	 // break;
+	  //Para rotar el diabolo cuando esta activo
+
   case 'g':
-	  /*Texture tex;
-	  tex.load(...)
-	  tex.save(...)*/
+	  //tex.loadColorBuffer(viewPort.getW(), viewPort.getH());
+	  tex.loadColorBuffer(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	  tex.save("test.bmp");
 	  break;
 
   default:
@@ -132,11 +165,11 @@ void specialKey(int key, int x, int y)
 
   switch (key) {
   case GLUT_KEY_RIGHT:
-    camera.pitch(1);   // rotate 1 on the X axis
-    break;
+	  camera.pitch(1);   // rotate 1 on the X axis
+	  break;
   case GLUT_KEY_LEFT:
-    camera.yaw(1);     // rotate 1 on the Y axis 
-    break;
+	  camera.yaw(1);     // rotate 1 on the Y axis 
+	  break;
   case GLUT_KEY_UP:
     camera.roll(1);    // rotate 1 on the Z axis
     break;
@@ -150,6 +183,18 @@ void specialKey(int key, int x, int y)
 
   if (need_redisplay)
     glutPostRedisplay();
+}
+void mouse(int button, int state, int x, int y)
+{
+	mCoord = { x,-y };
+}
+void motion(int x, int y)
+{
+	glm::dvec2 mOffset = mCoord; // var. global
+	mCoord = glm::dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
+	mOffset = (mCoord - mOffset) * 0.05; // sensitivity = 0.05
+	camera.rotatePY(mOffset.y, mOffset.x);
+	glutPostRedisplay();
 }
 //-------------------------------------------------------------------------
 

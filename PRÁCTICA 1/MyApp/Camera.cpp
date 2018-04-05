@@ -19,6 +19,9 @@ using namespace glm;
 	 y = ay;
 	 set();
  }
+
+
+
  //-------------------------------------------------------------------------
 
  void Viewport::set() 
@@ -32,6 +35,10 @@ void Camera::setAZ()
   eye= dvec3(0, 0, 500);
   look= dvec3(0, 0, 0);
   up= dvec3(0, 1, 0);
+
+  front = -(normalize(eye - look));
+  right = normalize(cross(up, -front));
+
   viewMat = lookAt(eye, look, up);
   setVM();
 }
@@ -39,9 +46,13 @@ void Camera::setAZ()
 
 void Camera::set3D() 
 {
-  eye= dvec3(500, 500, 500);
-  look= dvec3(0, 10, 0);
-  up= dvec3(0, 1, 0);
+	eye = dvec3(500, 500, 500);
+	look = dvec3(0, 10, 0);
+	up = dvec3(0, 1, 0);
+
+	front = -(normalize(eye - look));
+	right = normalize(cross(up, -front));
+
   viewMat = lookAt(eye, look, up);
   setVM();
 }
@@ -56,17 +67,47 @@ void Camera::setVM()
 
 void Camera::pitch(GLdouble a) 
 {  
-  viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(1.0, 0, 0));
+	rotatePY(a, 0);
+  //viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(1.0, 0, 0));
 }
 //-------------------------------------------------------------------------
 void Camera::yaw(GLdouble a)
 {
-  viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 1.0, 0));
+	rotatePY(0,a);
+  //viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 1.0, 0));
 }
 //-------------------------------------------------------------------------
 void Camera::roll(GLdouble a)
 {
   viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 0, 1.0));
+}
+void Camera::moveLR(GLdouble cs)
+{
+	eye += right * cs;
+	viewMat = lookAt(eye, eye+front, up);
+}
+void Camera::moveFB(GLdouble cs)
+{
+	eye += -front * cs;
+	viewMat = lookAt(eye, eye+front, up);
+}
+void Camera::moveUD(GLdouble cs)
+{
+	eye += cross(-front,right) * cs;
+	viewMat = lookAt(eye, eye+front, up);
+}
+void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw)
+{
+	pitch_ += incrPitch;
+	yaw_ += incrYaw;
+	if (pitch_ > 89.5) pitch_ = 89.5;
+	if (yaw_ > 89.5) yaw_ = 89.5;
+
+	front.x = sin(radians(yaw_)) * cos(radians(pitch_));
+	front.y = sin(radians(pitch_));
+	front.z = -cos(radians(yaw_)) * cos(radians(pitch_));
+	front = glm::normalize(front);
+	viewMat = lookAt(eye, eye+front, up);
 }
 //-------------------------------------------------------------------------
 
@@ -95,6 +136,21 @@ void Camera::setPM()
   glMatrixMode(GL_PROJECTION);
   glLoadMatrixd(value_ptr(projMat));
   glMatrixMode(GL_MODELVIEW);
+}
+void Camera::setPrj()
+{
+	if (orto) {
+		glMatrixMode(GL_PROJECTION);
+		projMat = ortho(-500, 500, -250, 250, 500, 1000);
+		glLoadMatrixd(value_ptr(projMat));
+		glMatrixMode(GL_MODELVIEW);
+	}
+	else {
+		glMatrixMode(GL_PROJECTION);
+		projMat = frustum(-500, 500, -250, 250, 500, 10000);
+		glLoadMatrixd(value_ptr(projMat));
+		glMatrixMode(GL_MODELVIEW);
+	}
 }
 //-------------------------------------------------------------------------
 

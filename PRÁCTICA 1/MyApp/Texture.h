@@ -13,6 +13,8 @@ public:
 	// cargar y transferir a openGL
 	void bind();
 	void unbind() { glBindTexture(GL_TEXTURE_2D, 0); };
+	void loadColorBuffer(GLsizei width, GLsizei height);
+	void save(const std::string & BMP_Name);
 	
 protected:
 	GLuint w, h; // dimensiones de la imagen
