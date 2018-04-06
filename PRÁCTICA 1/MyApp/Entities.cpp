@@ -228,9 +228,9 @@ void RectangleTex::draw()
 
 CuboTex::CuboTex(GLdouble w, GLdouble h )
 {
-	mesh = Mesh::generateRectangleTex(w, h,false,1);
 	texture.load("..//Bmps//container.bmp", 255);
 	mesh2 = Mesh::generateCuboTex(300.0);
+	mesh = Mesh::generateRectangleTex(w, h,false,1);
 	texture2.load("..//Bmps//chuches.bmp", 255);
 	modelMat = translate(modelMat, dvec3(-250, 150, 0));
 
@@ -359,6 +359,35 @@ Suelo::Suelo()
 }
 
 void Suelo::draw()
+{
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+}
+
+GlassPot::GlassPot(GLdouble l)
+{
+	texture.load("..//Bmps//window.bmp", 150);
+	mesh = Mesh::generateCuboTex(l);
+	modelMat = translate(modelMat, dvec3(0, 150, +305));
+	
+}
+
+void GlassPot::draw()
+{
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+}
+
+Grass::Grass(GLdouble l)
+{
+	glm::ivec3 color = { 0.0,0.0,0.0 };
+	texture.load("..//Bmps//grass.bmp",color,0);
+	mesh = Mesh::generateRectangleTex(l,l,false,0);
+}
+
+void Grass::draw()
 {
 	texture.bind();
 	Entity::draw();

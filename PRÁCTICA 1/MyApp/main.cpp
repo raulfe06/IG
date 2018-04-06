@@ -134,9 +134,7 @@ void key(unsigned char key, int x, int y)
 	  camera.setAZ();
 	  break;
   case 'p':
-	 
 	  camera.setPrj();
-	  camera.orto = !camera.orto;
 	  break;
   //case 'a':
 	 // dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
@@ -186,7 +184,7 @@ void specialKey(int key, int x, int y)
 }
 void mouse(int button, int state, int x, int y)
 {
-	mCoord = { x,-y };
+	mCoord = { x,glutGet(GLUT_WINDOW_HEIGHT) - y };
 }
 void motion(int x, int y)
 {

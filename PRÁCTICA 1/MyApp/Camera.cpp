@@ -53,6 +53,7 @@ void Camera::set3D()
 	front = -(normalize(eye - look));
 	right = normalize(cross(up, -front));
 
+
   viewMat = lookAt(eye, look, up);
   setVM();
 }
@@ -68,13 +69,13 @@ void Camera::setVM()
 void Camera::pitch(GLdouble a) 
 {  
 	rotatePY(a, 0);
-  //viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(1.0, 0, 0));
+  viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(1.0, 0, 0));
 }
 //-------------------------------------------------------------------------
 void Camera::yaw(GLdouble a)
 {
 	rotatePY(0,a);
-  //viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 1.0, 0));
+  viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 1.0, 0));
 }
 //-------------------------------------------------------------------------
 void Camera::roll(GLdouble a)
@@ -88,7 +89,7 @@ void Camera::moveLR(GLdouble cs)
 }
 void Camera::moveFB(GLdouble cs)
 {
-	eye += -front * cs;
+	eye += front * cs;
 	viewMat = lookAt(eye, eye+front, up);
 }
 void Camera::moveUD(GLdouble cs)
@@ -115,7 +116,7 @@ void Camera::scale(GLdouble s)
 { 
   factScale -= s; 
   if (s < 0) s = 0.01;
-  setPM(); 
+  setPM();
 }
 //-------------------------------------------------------------------------
 
@@ -132,25 +133,16 @@ void Camera::setSize(GLdouble aw, GLdouble ah)
 
 void Camera::setPM() 
 {
-  projMat = ortho(xLeft*factScale, xRight*factScale, yBot*factScale, yTop*factScale, nearVal, farVal);
+  if(orto)projMat = ortho(xLeft*factScale, xRight*factScale, yBot*factScale, yTop*factScale, nearVal, farVal);
+  else  projMat = frustum(-500.0* factScale, 500.0* factScale, -250.0* factScale, 250.0* factScale, 500.0, 10000.0);
   glMatrixMode(GL_PROJECTION);
   glLoadMatrixd(value_ptr(projMat));
   glMatrixMode(GL_MODELVIEW);
 }
 void Camera::setPrj()
 {
-	if (orto) {
-		glMatrixMode(GL_PROJECTION);
-		projMat = ortho(-500, 500, -250, 250, 500, 1000);
-		glLoadMatrixd(value_ptr(projMat));
-		glMatrixMode(GL_MODELVIEW);
-	}
-	else {
-		glMatrixMode(GL_PROJECTION);
-		projMat = frustum(-500, 500, -250, 250, 500, 10000);
-		glLoadMatrixd(value_ptr(projMat));
-		glMatrixMode(GL_MODELVIEW);
-	}
+	orto = !orto;
+	setPM();
 }
 //-------------------------------------------------------------------------
 
