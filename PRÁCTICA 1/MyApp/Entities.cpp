@@ -385,6 +385,31 @@ Grass::Grass(GLdouble l)
 	glm::ivec3 color = { 0.0,0.0,0.0 };
 	texture.load("..//Bmps//grass.bmp",color,0);
 	mesh = Mesh::generateRectangleTex(l,l,false,0);
+	mesh2 = Mesh::generateRectangleTex(l, l, false, 0);
+
+
+}
+
+void Grass::render(glm::dmat4 const & modelViewMat)
+{
+	dmat4 aMat = modelViewMat * modelMat;
+	aMat = translate(aMat, dvec3(0, 150, +305));
+	aMat = rotate(aMat, radians(-45.0), dvec3(0.0, 1.0, 0.0));
+	glLoadMatrixd(value_ptr(aMat));
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+
+	aMat = modelViewMat * modelMat;
+	aMat = translate(aMat, dvec3(0, 150, +305));
+	aMat = rotate(aMat, radians(45.0), dvec3(0.0, 1.0, 0.0));
+	glLoadMatrixd(value_ptr(aMat));
+	texture.bind();
+	mesh2->draw();
+	texture.unbind();
+
+	aMat = modelViewMat * modelMat;
+
 }
 
 void Grass::draw()

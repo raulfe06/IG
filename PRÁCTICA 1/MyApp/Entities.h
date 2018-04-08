@@ -136,7 +136,7 @@ class Grass : public Entity
 {
 public:
 	Grass(GLdouble l);
-	//void render(glm::dmat4 const& modelViewMat);
+	void render(glm::dmat4 const& modelViewMat);
 	virtual void draw();
 };
 #endif //_H_Entities_H_
