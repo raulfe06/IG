@@ -190,7 +190,7 @@ void motion(int x, int y)
 {
 	glm::dvec2 mOffset = mCoord; // var. global
 	mCoord = glm::dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
-	mOffset = (mCoord - mOffset) * 0.05; // sensitivity = 0.05
+	mOffset = (mCoord - mOffset) * 0.1; // sensitivity = 0.05
 	camera.rotatePY(mOffset.y, mOffset.x);
 	glutPostRedisplay();
 }

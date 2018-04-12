@@ -108,6 +108,9 @@ void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw)
 	front.y = sin(radians(pitch_));
 	front.z = -cos(radians(yaw_)) * cos(radians(pitch_));
 	front = glm::normalize(front);
+
+	right = normalize(cross(up, -front));
+
 	viewMat = lookAt(eye, eye+front, up);
 }
 //-------------------------------------------------------------------------
