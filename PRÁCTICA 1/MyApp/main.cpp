@@ -136,17 +136,17 @@ void key(unsigned char key, int x, int y)
   case 'p':
 	  camera.setPrj();
 	  break;
-  //case 'a':
-	 // dynamic_cast<Diabolo*>(scene.getObject(1))->setAngle(5);
-	 // break;
-	  //Para rotar el diabolo cuando esta activo
 
-  case 'g':
+  case 'f':
 	  //tex.loadColorBuffer(viewPort.getW(), viewPort.getH());
 	  tex.loadColorBuffer(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	  tex.save("test.bmp");
 	  break;
+  case 'z':
+	  dynamic_cast<DiaboloTex*>(scene.getObject(0))->rotateDiabolo(5);
 
+	  //Para rotar el diabolo cuando esta activo
+	  break;
   default:
     need_redisplay = false;
     break;

@@ -1,8 +1,8 @@
+RaÃºl FernÃ¡ndez Guardia
+Sergio GavilÃ¡n FernÃ¡ndez
 
+Comentarios de la prÃ¡ctica:
 
-Al añadir un nuevo proyecto recuerda añadir la página de propiedades ProyectosGLFG.props al nuevo proyecto:
-Menú VER -> administrador de propiedades -> Agregar hoja de propiedades existente -> ProyectosGLFG.props -> Guardar
-
-Para añadir una nueva libreria, copia su directorio en la solución y los bin de la libreria en el directorio bin de la solución.
-Y añade los nuevos elementos al archivo ProyectosGLFG.props en las lineas: IncludePath, LibraryPath y AdditionalDependencies.
-También puedes crear otras páginas de propiedades.
+1) Para girar el diÃ¡bolo pulsar la tecla 'z'.
+2) La imagen se guarda con la tecla 'f'. La imagen de la escena se actualiza continuamente (con la visiÃ³n de la cÃ¡mara).
+3) Hemos realizado la parte opcional de la poliespiral y el dragÃ³n (estÃ¡n comentados en la escena, como con el resto de figuras).

@@ -316,6 +316,8 @@ DiaboloTex::DiaboloTex()
 
 void DiaboloTex::render(glm::dmat4 const & modelViewMat)
 {
+	
+
 	glMatrixMode(GL_MODELVIEW);
 
 	dmat4 aMat = modelViewMat * modelMat;
@@ -350,6 +352,12 @@ void DiaboloTex::draw()
 	texture.unbind();
 }
 
+void DiaboloTex::rotateDiabolo(double angle)
+{
+	
+	modelMat = rotate(modelMat, radians(angle_+angle), dvec3(0.0, 0.0, 1.0));
+}
+
 Suelo::Suelo()
 {
 	mesh = Mesh::generateRectangleTex(1500.0, 1500.0,true,1500.0/225.0);
@@ -375,9 +383,12 @@ GlassPot::GlassPot(GLdouble l)
 
 void GlassPot::draw()
 {
+	glDepthMask(GL_FALSE);
 	texture.bind();
 	Entity::draw();
 	texture.unbind();
+	glDepthMask(GL_TRUE);
+
 }
 
 Grass::Grass(GLdouble l)
@@ -417,4 +428,31 @@ void Grass::draw()
 	texture.bind();
 	Entity::draw();
 	texture.unbind();
+}
+
+Foto::Foto(GLdouble w, GLdouble h)
+{
+	mesh = Mesh::generateRectangleTex(w, h, false, 0);
+	modelMat = translate(modelMat, dvec3(0.0, 1.0, 0.0));
+
+	modelMat = rotate(modelMat, radians(90.0), dvec3(1.0, 0.0, 0.0));
+	modelMat = rotate(modelMat, radians(90.0), dvec3(0.0, 0.0, 1.0));
+	modelMat = rotate(modelMat, radians(180.0), dvec3(0.0, 1.0, 0.0));
+
+	/*modelMat = rotate(modelMat, radians(180.0), dvec3(0.0, 0.0, 1.0));
+	modelMat = rotate(modelMat, radians(180.0), dvec3(0.0, 1.0, 0.0));
+	modelMat = rotate(modelMat, radians(90.0), dvec3(0.0, 0.0, 1.0));*/
+
+
+	//modelMat = translate(modelMat, dvec3(0.0, 0.0, 1.0));
+
+}
+
+void Foto::draw()
+{
+	glReadBuffer(GL_FRONT);
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT), 0);
+	texture.updateImage(255);
+	Entity::draw();
+
 }

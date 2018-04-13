@@ -22,13 +22,14 @@ void Scene::init()
   //objetos.push_back(new TriPyramid(200.0, 500.0));
   //objetos.push_back(new ContCubo(200.0));
 	//objetos.push_back(new Dragon(30000));
-  //objetos.push_back(new Diabolo());
+ // objetos.push_back(new Diabolo());
   //objetos.push_back(new Cubo(300.0, 300.0));
  //objetos.push_back(new Poliespiral(glm::dvec2(0.0, 0.0), 0, 89.5, 0.5, 0.5, 100.0));
   //objetos.push_back(new RectangleTex(200.0, 200.0));
-  objetos.push_back(new CuboTex(300.0,300.0));
   //objetos.push_back(new PyramideTex(200.0, 500.0));
   objetos.push_back(new DiaboloTex());
+  objetos.push_back(new CuboTex(300.0,300.0));
+  objetos.push_back(new Foto(200.0, 200.0));
   objetos.push_back(new Suelo());
   objetos.push_back(new Grass(300.0));
   objetos.push_back(new GlassPot(300.0));
