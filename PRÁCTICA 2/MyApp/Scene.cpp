@@ -15,12 +15,20 @@ void Scene::init()
   glEnable(GL_CULL_FACE);
   
   camera->setAZ();
+  camera->setPrj();
+
   light_ = new Light();
+  light_->setDir(glm::fvec3(0, 0, 1));
+
+  spotLight_ = new Spotlight();
+
     
   // lights
   // textures  
 
-  objetos.push_back(new Esfera(100,70,50));
+  objetos.push_back(new Esfera(100,70,50,0));
+  objetos.push_back(new Esfera(100, 70, 50, 1));
+  objetos.push_back(new Esfera(100, 70, 50, 2));
 
 }
 //-------------------------------------------------------------------------
@@ -37,9 +45,14 @@ Scene::~Scene()
 
 void Scene::render()
 {
-  
-	light_->load();
+	light_->load(camera->getViewMat());
 
+
+	spotLight_->setPos(camera->getPos());
+	spotLight_->setSpotDir(camera->getDir());
+	spotLight_->load(camera->getViewMat());
+
+	//light_->setPos(glm::fvec3(0, 1, 0));
 	for each (Entity* it in objetos)
 	{
 		it->render(camera->getViewMat());

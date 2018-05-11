@@ -75,6 +75,7 @@
     <ClCompile Include="Pixmap32RGBA.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,7 @@
     <ClInclude Include="Pixmap32RGBA.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Spotlight.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

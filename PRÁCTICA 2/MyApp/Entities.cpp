@@ -224,7 +224,7 @@ RectangleTex::RectangleTex(GLdouble w, GLdouble h)
 
 void RectangleTex::draw()
 {
-	texture.bind();
+texture.bind(GL_REPLACE);
 	Entity::draw();
 	texture.unbind();
 }
@@ -249,13 +249,13 @@ void CuboTex::render(glm::dmat4 const & modelViewMat)
 
 	glCullFace(GL_FRONT);
 	//"Método draw de cada malla"
-	texture.bind(); 
+texture.bind(GL_REPLACE); 
 	mesh->draw(); // Base
 	texture.unbind();
 
 	glCullFace(GL_BACK);
 	//"Método draw de cada malla"
-	texture2.bind();
+ texture2.bind(GL_REPLACE);
 	mesh->draw(); // Base
 	texture2.unbind();
 
@@ -266,13 +266,13 @@ void CuboTex::render(glm::dmat4 const & modelViewMat)
 
 	glCullFace(GL_FRONT);
 	//"Método draw de cada malla"
-	texture.bind();
+texture.bind(GL_REPLACE);
 	mesh->draw(); // Tapa
 	texture.unbind();
 
 	glCullFace(GL_BACK);
 	//"Método draw de cada malla"
-	texture2.bind();
+ texture2.bind(GL_REPLACE);
 	mesh->draw(); // Tapa
 	texture2.unbind();
 
@@ -282,13 +282,13 @@ void CuboTex::render(glm::dmat4 const & modelViewMat)
 
 	glCullFace(GL_FRONT);
 	//"Método draw de cada malla"
-	texture.bind();
+texture.bind(GL_REPLACE);
 	mesh2->draw(); // Base
 	texture.unbind();
 
 	glCullFace(GL_BACK);
 	//"Método draw de cada malla"
-	texture2.bind();
+ texture2.bind(GL_REPLACE);
 	mesh2->draw(); // Base
 	texture2.unbind();
 
@@ -300,7 +300,8 @@ void CuboTex::render(glm::dmat4 const & modelViewMat)
 PyramideTex::PyramideTex(GLdouble r, GLdouble h)
 {
 	mesh = Mesh::generatePyramidTex(r,h);
-	texture.load("..//Bmps//container.bmp", 255);texture.bind();
+	texture.load("..//Bmps//container.bmp", 255);
+	texture.bind(GL_REPLACE);
 	Entity::draw();
 	texture.unbind();
 }
@@ -350,7 +351,7 @@ void DiaboloTex::render(glm::dmat4 const & modelViewMat)
 
 void DiaboloTex::draw()
 {
-	texture.bind();
+texture.bind(GL_REPLACE);
 	Entity::draw();
 	texture.unbind();
 }
@@ -371,7 +372,7 @@ Suelo::Suelo()
 
 void Suelo::draw()
 {
-	texture.bind();
+texture.bind(GL_REPLACE);
 	Entity::draw();
 	texture.unbind();
 }
@@ -387,7 +388,7 @@ GlassPot::GlassPot(GLdouble l)
 void GlassPot::draw()
 {
 	glDepthMask(GL_FALSE);
-	texture.bind();
+texture.bind(GL_REPLACE);
 	Entity::draw();
 	texture.unbind();
 	glDepthMask(GL_TRUE);
@@ -410,7 +411,7 @@ void Grass::render(glm::dmat4 const & modelViewMat)
 	aMat = translate(aMat, dvec3(0, 150, +305));
 	aMat = rotate(aMat, radians(-45.0), dvec3(0.0, 1.0, 0.0));
 	glLoadMatrixd(value_ptr(aMat));
-	texture.bind();
+texture.bind(GL_REPLACE);
 	mesh->draw();
 	texture.unbind();
 
@@ -418,7 +419,7 @@ void Grass::render(glm::dmat4 const & modelViewMat)
 	aMat = translate(aMat, dvec3(0, 150, +305));
 	aMat = rotate(aMat, radians(45.0), dvec3(0.0, 1.0, 0.0));
 	glLoadMatrixd(value_ptr(aMat));
-	texture.bind();
+texture.bind(GL_REPLACE);
 	mesh2->draw();
 	texture.unbind();
 
@@ -428,7 +429,7 @@ void Grass::render(glm::dmat4 const & modelViewMat)
 
 void Grass::draw()
 {
-	texture.bind();
+texture.bind(GL_REPLACE);
 	Entity::draw();
 	texture.unbind();
 }
@@ -460,24 +461,48 @@ void Foto::draw()
 
 }
 
-Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks)
+Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks,int i)
 {
+	if (i == 0) {
+		texture.load("..//Bmps//sun.bmp");
+
+		modelMat = translate(modelMat, dvec3(0,200,0));
+		material.setGold();
+
+	}
+	if (i == 1) {
+		texture.load("..//Bmps//venus.bmp");
+
+		modelMat = translate(modelMat, dvec3(-300,50,0));
+		material.setSilver();
+	}
+	if (i == 2) {
+		texture.load("..//Bmps//mars.bmp");
+
+		modelMat = translate(modelMat, dvec3(300,50,0));
+		material.setBronze();
+	}
 	esfera = gluNewQuadric();
 	gluQuadricDrawStyle(esfera, GLU_FILL);
-	material.setGold();
+	gluQuadricNormals(esfera, GLU_SMOOTH);
+	gluQuadricOrientation(esfera, GLU_OUTSIDE);
+	gluQuadricTexture(esfera, GL_TRUE);
+
 
 }
 
 Esfera::~Esfera()
 {
 	gluDeleteQuadric(esfera);
-	
-
 }
 
 void Esfera::draw()
 {
+	texture.bind(GL_MODULATE);
 	Entity::draw();
+	material.load();
 	gluSphere(esfera, 100, 30, 30);
+	texture.unbind();	
+
 }
 

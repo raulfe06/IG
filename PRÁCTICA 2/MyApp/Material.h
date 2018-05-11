@@ -10,6 +10,7 @@ public:
 	virtual void load();
 	void setGold();
 	void setSilver();
+	void setBronze();
 	Material();
 	Material(glm::fvec4 ambient_, glm::fvec4 diffuse_, glm::fvec4 specular_, GLfloat expF_);
 

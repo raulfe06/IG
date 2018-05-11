@@ -47,7 +47,9 @@ public:
   void moveLR(GLdouble cs); // Left / Right
   void moveFB(GLdouble cs); // Forward / Backward
   void moveUD(GLdouble cs); // Up / Down
-  void rotatePY(GLdouble incrPitch, GLdouble incrYaw);
+  void rotatePY(GLdouble incrPitch, GLdouble incrYaw);  glm::dvec3 getPos() { return eye; };
+  glm::dvec3 getDir() { return front; };
+
 
   // projection matrix
   glm::dmat4 const& getProjMat() { return projMat; };

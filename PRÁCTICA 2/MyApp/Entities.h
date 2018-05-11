@@ -20,6 +20,8 @@ public:
   void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
   void setMaterial(Material const& mt) { material = mt; }
   void setTexture(Texture const& tex) { texture = tex; };
+  Material* getMaterial() { return &material; };
+
   
 protected:
   Mesh* mesh = nullptr;
@@ -158,7 +160,7 @@ public:
 class Esfera : public Entity
 {
 public:
-	Esfera(GLdouble radius, GLint slices, GLint stacks);
+	Esfera(GLdouble radius, GLint slices, GLint stacks,int i );
 	~Esfera();
 	GLUquadricObj* esfera;
 	virtual void draw();

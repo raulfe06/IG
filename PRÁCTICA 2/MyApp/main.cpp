@@ -144,6 +144,13 @@ void key(unsigned char key, int x, int y)
 	  break;
   case 'z':
 	  dynamic_cast<DiaboloTex*>(scene.getObject(0))->rotateDiabolo(5);
+  case 'b':
+	  scene.getSpotLight()->switchLight();
+	  break;
+  case 'n':
+	  scene.getLight()->switchLight();
+
+	  break;
 
 	  //Para rotar el diabolo cuando esta activo
 	  break;

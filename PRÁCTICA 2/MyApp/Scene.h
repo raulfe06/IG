@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Entities.h"
 #include "Light.h"
+#include "Spotlight.h"
 
 //-------------------------------------------------------------------------
 
@@ -18,12 +19,17 @@ public:
     void init();
 	  void render();    
 	  Entity* getObject(int num) const { return objetos[num]; };
+	  Spotlight* getSpotLight() { return spotLight_; };
+	  Light* getLight() { return light_; };
 	  
 protected:
 	  Camera* camera;
 	  Viewport* viewPort_;
 	  std::vector<Entity*> objetos;
 	  Light* light_;
+	  Spotlight* spotLight_;
+
+	  
 
 };
 

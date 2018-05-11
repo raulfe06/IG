@@ -11,7 +11,7 @@ public:
 	~Texture() { if (id != 0) glDeleteTextures(1, &id); };
 	bool load(const std::string & BMP_Name, GLubyte alpha = 255);
 	// cargar y transferir a openGL
-	void bind();
+	void bind(GLuint mix);
 	void unbind() { glBindTexture(GL_TEXTURE_2D, 0); };
 	void loadColorBuffer(GLsizei width, GLsizei height);
 	void save(const std::string & BMP_Name);
