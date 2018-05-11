@@ -117,12 +117,36 @@ public:
 	DiaboloTex();
 	void render(glm::dmat4 const& modelViewMat);
 	virtual void draw();
+	//void setAngle(int a) { angle_ = a; };
+	void rotateDiabolo(double angle);
+private:
+	double angle_;
 };
 class Suelo : public Entity
 {
 public:
 	Suelo();
 	//void render(glm::dmat4 const& modelViewMat);
+	virtual void draw();
+};
+class GlassPot : public Entity
+{
+public:
+	GlassPot(GLdouble l);
+	//void render(glm::dmat4 const& modelViewMat);
+	virtual void draw();
+};
+class Grass : public Entity
+{
+public:
+	Grass(GLdouble l);
+	void render(glm::dmat4 const& modelViewMat);
+	virtual void draw();
+};
+class Foto : public Entity
+{
+public:
+	Foto(GLdouble w, GLdouble h);
 	virtual void draw();
 };
 #endif //_H_Entities_H_

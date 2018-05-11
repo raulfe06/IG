@@ -214,7 +214,7 @@ void Poliespiral::draw()
 
 RectangleTex::RectangleTex(GLdouble w, GLdouble h)
 {
-	mesh = Mesh::generateRectangleTex(w, h);
+	mesh = Mesh::generateRectangleTex(w, h,false,0);
 	texture.load("..//Bmps//Zelda.bmp", 255);
 
 }
@@ -228,10 +228,11 @@ void RectangleTex::draw()
 
 CuboTex::CuboTex(GLdouble w, GLdouble h )
 {
-	mesh = Mesh::generateRectangleTex(w, h);
 	texture.load("..//Bmps//container.bmp", 255);
 	mesh2 = Mesh::generateCuboTex(300.0);
+	mesh = Mesh::generateRectangleTex(w, h,false,1);
 	texture2.load("..//Bmps//chuches.bmp", 255);
+	modelMat = translate(modelMat, dvec3(-250, 150, 0));
 
 }
 void CuboTex::render(glm::dmat4 const & modelViewMat)
@@ -308,17 +309,20 @@ void PyramideTex::draw()
 
 DiaboloTex::DiaboloTex()
 {
-	mesh = Mesh::generatePyramidTex(200.0, 500.0);
+	mesh = Mesh::generatePyramidTex(100.0, 300.0);
 	texture.load("..//Bmps//floris.bmp", 255);
+	modelMat = translate(modelMat, dvec3(400, 200, 0));
 }
 
 void DiaboloTex::render(glm::dmat4 const & modelViewMat)
 {
+	
+
 	glMatrixMode(GL_MODELVIEW);
 
 	dmat4 aMat = modelViewMat * modelMat;
 
-	aMat = translate(aMat, dvec3(0, 0, -500.0));
+	aMat = translate(aMat, dvec3(0, 0, -300.0));
 
 	glLoadMatrixd(value_ptr(aMat));
 
@@ -331,7 +335,7 @@ void DiaboloTex::render(glm::dmat4 const & modelViewMat)
 
 
 	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
-	aMat = translate(aMat, dvec3(0.0, 0.0, -1000.0));
+	aMat = translate(aMat, dvec3(0.0, 0.0, -600.0));
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
 
@@ -348,11 +352,18 @@ void DiaboloTex::draw()
 	texture.unbind();
 }
 
+void DiaboloTex::rotateDiabolo(double angle)
+{
+	
+	modelMat = rotate(modelMat, radians(angle_+angle), dvec3(0.0, 0.0, 1.0));
+}
+
 Suelo::Suelo()
 {
-	mesh = Mesh::generateRectangleTex(1000.0, 1000.0);
+	mesh = Mesh::generateRectangleTex(1500.0, 1500.0,true,1500.0/225.0);
 	texture.load("..//Bmps//baldosaC.bmp");
 	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0));
+	modelMat = translate(modelMat, dvec3(0, -100, 0));
 }
 
 void Suelo::draw()
@@ -360,4 +371,88 @@ void Suelo::draw()
 	texture.bind();
 	Entity::draw();
 	texture.unbind();
+}
+
+GlassPot::GlassPot(GLdouble l)
+{
+	texture.load("..//Bmps//window.bmp", 150);
+	mesh = Mesh::generateCuboTex(l);
+	modelMat = translate(modelMat, dvec3(0, 150, +305));
+	
+}
+
+void GlassPot::draw()
+{
+	glDepthMask(GL_FALSE);
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+	glDepthMask(GL_TRUE);
+
+}
+
+Grass::Grass(GLdouble l)
+{
+	glm::ivec3 color = { 0.0,0.0,0.0 };
+	texture.load("..//Bmps//grass.bmp",color,0);
+	mesh = Mesh::generateRectangleTex(l,l,false,0);
+	mesh2 = Mesh::generateRectangleTex(l, l, false, 0);
+
+
+}
+
+void Grass::render(glm::dmat4 const & modelViewMat)
+{
+	dmat4 aMat = modelViewMat * modelMat;
+	aMat = translate(aMat, dvec3(0, 150, +305));
+	aMat = rotate(aMat, radians(-45.0), dvec3(0.0, 1.0, 0.0));
+	glLoadMatrixd(value_ptr(aMat));
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+
+	aMat = modelViewMat * modelMat;
+	aMat = translate(aMat, dvec3(0, 150, +305));
+	aMat = rotate(aMat, radians(45.0), dvec3(0.0, 1.0, 0.0));
+	glLoadMatrixd(value_ptr(aMat));
+	texture.bind();
+	mesh2->draw();
+	texture.unbind();
+
+	aMat = modelViewMat * modelMat;
+
+}
+
+void Grass::draw()
+{
+	texture.bind();
+	Entity::draw();
+	texture.unbind();
+}
+
+Foto::Foto(GLdouble w, GLdouble h)
+{
+	mesh = Mesh::generateRectangleTex(w, h, false, 0);
+	modelMat = translate(modelMat, dvec3(0.0, 1.0, 0.0));
+
+	modelMat = rotate(modelMat, radians(90.0), dvec3(1.0, 0.0, 0.0));
+	modelMat = rotate(modelMat, radians(90.0), dvec3(0.0, 0.0, 1.0));
+	modelMat = rotate(modelMat, radians(180.0), dvec3(0.0, 1.0, 0.0));
+
+	/*modelMat = rotate(modelMat, radians(180.0), dvec3(0.0, 0.0, 1.0));
+	modelMat = rotate(modelMat, radians(180.0), dvec3(0.0, 1.0, 0.0));
+	modelMat = rotate(modelMat, radians(90.0), dvec3(0.0, 0.0, 1.0));*/
+
+
+	//modelMat = translate(modelMat, dvec3(0.0, 0.0, 1.0));
+
+}
+
+void Foto::draw()
+{
+	glReadBuffer(GL_FRONT);
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT), 0);
+	texture.updateImage(255);
+	Entity::draw();
+
 }

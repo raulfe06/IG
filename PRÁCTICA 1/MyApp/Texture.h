@@ -13,7 +13,10 @@ public:
 	// cargar y transferir a openGL
 	void bind();
 	void unbind() { glBindTexture(GL_TEXTURE_2D, 0); };
-	
+	void loadColorBuffer(GLsizei width, GLsizei height);
+	void save(const std::string & BMP_Name);
+	bool load(const std::string & BMP_Name, glm::ivec3 color, GLubyte alpha);
+	void updateImage(GLubyte alpha);
 protected:
 	GLuint w, h; // dimensiones de la imagen
 	GLuint id; // identificador interno (GPU) de la textura

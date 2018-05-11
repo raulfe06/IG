@@ -8,6 +8,7 @@ void Scene::init()
 	// OpenGL basic setting
   glClearColor(1.0, 1.0, 1.0, 1.0);  // background color (alpha=1 -> opaque)
   glEnable(GL_DEPTH_TEST);  
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   
   camera->setAZ();
     
@@ -21,14 +22,17 @@ void Scene::init()
   //objetos.push_back(new TriPyramid(200.0, 500.0));
   //objetos.push_back(new ContCubo(200.0));
 	//objetos.push_back(new Dragon(30000));
-  //objetos.push_back(new Diabolo());
+ // objetos.push_back(new Diabolo());
   //objetos.push_back(new Cubo(300.0, 300.0));
  //objetos.push_back(new Poliespiral(glm::dvec2(0.0, 0.0), 0, 89.5, 0.5, 0.5, 100.0));
   //objetos.push_back(new RectangleTex(200.0, 200.0));
-  //objetos.push_back(new CuboTex(300.0,300.0));
   //objetos.push_back(new PyramideTex(200.0, 500.0));
   objetos.push_back(new DiaboloTex());
+  objetos.push_back(new CuboTex(300.0,300.0));
+  objetos.push_back(new Foto(200.0, 200.0));
   objetos.push_back(new Suelo());
+  objetos.push_back(new Grass(300.0));
+  objetos.push_back(new GlassPot(300.0));
 }
 //-------------------------------------------------------------------------
 
@@ -46,10 +50,18 @@ void Scene::render()
 {
   glMatrixMode(GL_MODELVIEW);
   
-	for each (Entity* it in objetos)
+	/*for each (Entity* it in objetos)
 	{
 		it->render(camera->getViewMat());
-	}
+	}*/
+  int i = 0;
+  for ( i; i < objetos.size() - 1; i++) {
+	  objetos[i]->render(camera->getViewMat());
+  }
+
+  glEnable(GL_BLEND);
+  objetos[i]->render(camera->getViewMat());
+  glDisable(GL_BLEND);
 
   //PARA DIVIDIRLO EN 4 VIEWPORTS
 	/*double w = viewPort_->getW();
