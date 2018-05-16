@@ -26,9 +26,11 @@ void Scene::init()
   // lights
   // textures  
 
+  objetos.push_back(new EsferaLuz(50, 70, 50, 3));
   objetos.push_back(new Esfera(100,70,50,0));
   objetos.push_back(new Esfera(100, 70, 50, 1));
   objetos.push_back(new Esfera(100, 70, 50, 2));
+
 
 }
 //-------------------------------------------------------------------------

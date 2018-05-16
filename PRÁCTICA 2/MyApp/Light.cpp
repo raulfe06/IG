@@ -2,7 +2,7 @@
 
 GLuint Light::cont = 0;
 
-Light::Light()
+Light::Light() :lightOn(true)
 {
 	if (cont < GL_MAX_LIGHTS) {
 		id = GL_LIGHT0 + cont;

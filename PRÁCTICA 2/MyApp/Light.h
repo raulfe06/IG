@@ -11,7 +11,7 @@ protected:
 	glm::fvec4 diffuse = { 0.7, 0.7, 0.7, 1 };
 	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 	glm::fvec4 posDir = { 0, 0, 1, 0 };
-	bool lightOn = false;
+	bool lightOn;
 
 public:
 	Light();

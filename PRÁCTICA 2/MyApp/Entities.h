@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Spotlight.h"
 
 //-------------------------------------------------------------------------
 
@@ -162,7 +163,19 @@ class Esfera : public Entity
 public:
 	Esfera(GLdouble radius, GLint slices, GLint stacks,int i );
 	~Esfera();
-	GLUquadricObj* esfera;
 	virtual void draw();
+
+protected:
+	GLUquadricObj* esfera;
+	glm::dvec3 pos;
+};
+class EsferaLuz : public Esfera
+{
+public:
+	EsferaLuz(GLdouble radius, GLint slices, GLint stacks, int i);
+	~EsferaLuz() {};
+	Spotlight* spotLight_;
+	void render(glm::dmat4 const& modelViewMat);
+
 };
 #endif //_H_Entities_H_

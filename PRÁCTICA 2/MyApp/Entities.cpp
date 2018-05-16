@@ -482,6 +482,13 @@ Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks,int i)
 		modelMat = translate(modelMat, dvec3(300,50,0));
 		material.setBronze();
 	}
+	if (i == 3) {
+		texture.load("..//Bmps//mars.bmp");
+		pos = dvec3(0, 500, 0);
+		modelMat = translate(modelMat, pos);
+		material.setBronze();
+		
+	}
 	esfera = gluNewQuadric();
 	gluQuadricDrawStyle(esfera, GLU_FILL);
 	gluQuadricNormals(esfera, GLU_SMOOTH);
@@ -499,10 +506,24 @@ Esfera::~Esfera()
 void Esfera::draw()
 {
 	texture.bind(GL_MODULATE);
-	Entity::draw();
 	material.load();
 	gluSphere(esfera, 100, 30, 30);
 	texture.unbind();	
 
 }
 
+EsferaLuz::EsferaLuz(GLdouble radius, GLint slices, GLint stacks, int i) : Esfera(radius,slices,stacks,i)
+{
+	spotLight_ = new Spotlight();
+	spotLight_->setPos(pos);
+	spotLight_->setSpotDir(glm::fvec3(0, -1, 0));
+	spotLight_->enable();
+		
+}
+
+void EsferaLuz::render(glm::dmat4 const & modelViewMat)
+{
+	spotLight_->load(modelViewMat);
+	Esfera::render(modelViewMat);
+
+}
