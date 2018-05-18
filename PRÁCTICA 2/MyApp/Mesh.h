@@ -31,12 +31,8 @@ public:
   static Mesh* generateRectangleTex(GLdouble w, GLdouble h, bool repeating, double repeatingNumber);
   static Mesh* generateCuboTex(GLdouble l);
   static Mesh* generatePyramidTex(GLdouble r,GLdouble h);
-
-
-
- 
-
-
+  virtual void enable();
+  virtual void disable();
 
 protected:
    GLuint numVertices = 0;
@@ -44,6 +40,8 @@ protected:
    glm::dvec3* vertices = nullptr;
    glm::dvec4* colors = nullptr;
    glm::dvec2 * texCoords = nullptr;
+   glm::dvec3* normals = nullptr;
+
 };
 
 //-------------------------------------------------------------------------

@@ -22,11 +22,10 @@ void Scene::init()
 
   spotLight_ = new Spotlight();
 
-    
-  // lights
-  // textures  
+  esferaLuz_ = new EsferaLuz(50, 70, 50, 3);
 
-  objetos.push_back(new EsferaLuz(50, 70, 50, 3));
+  objetos.push_back(esferaLuz_);
+
   objetos.push_back(new Esfera(100,70,50,0));
   objetos.push_back(new Esfera(100, 70, 50, 1));
   objetos.push_back(new Esfera(100, 70, 50, 2));
@@ -49,12 +48,10 @@ void Scene::render()
 {
 	light_->load(camera->getViewMat());
 
-
 	spotLight_->setPos(camera->getPos());
 	spotLight_->setSpotDir(camera->getDir());
 	spotLight_->load(camera->getViewMat());
 
-	//light_->setPos(glm::fvec3(0, 1, 0));
 	for each (Entity* it in objetos)
 	{
 		it->render(camera->getViewMat());

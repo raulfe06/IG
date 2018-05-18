@@ -483,7 +483,7 @@ Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks,int i)
 		material.setBronze();
 	}
 	if (i == 3) {
-		texture.load("..//Bmps//mars.bmp");
+		texture.load("..//Bmps//moon.bmp");
 		pos = dvec3(0, 500, 0);
 		modelMat = translate(modelMat, pos);
 		material.setBronze();
@@ -515,15 +515,14 @@ void Esfera::draw()
 EsferaLuz::EsferaLuz(GLdouble radius, GLint slices, GLint stacks, int i) : Esfera(radius,slices,stacks,i)
 {
 	spotLight_ = new Spotlight();
-	spotLight_->setPos(pos);
+	spotLight_->setPos(glm::fvec3(0,0,0));
 	spotLight_->setSpotDir(glm::fvec3(0, -1, 0));
 	spotLight_->enable();
-		
 }
 
 void EsferaLuz::render(glm::dmat4 const & modelViewMat)
 {
-	spotLight_->load(modelViewMat);
+	spotLight_->load(modelViewMat*modelMat);
 	Esfera::render(modelViewMat);
 
 }

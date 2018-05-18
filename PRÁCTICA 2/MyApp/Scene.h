@@ -21,13 +21,16 @@ public:
 	  Entity* getObject(int num) const { return objetos[num]; };
 	  Spotlight* getSpotLight() { return spotLight_; };
 	  Light* getLight() { return light_; };
-	  
+	  EsferaLuz* esferaLuz_;
+
+	  EsferaLuz* getEsferaLuz() { return esferaLuz_; };
 protected:
 	  Camera* camera;
 	  Viewport* viewPort_;
 	  std::vector<Entity*> objetos;
 	  Light* light_;
 	  Spotlight* spotLight_;
+
 
 	  
 

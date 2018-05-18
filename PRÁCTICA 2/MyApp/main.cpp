@@ -136,6 +136,9 @@ void key(unsigned char key, int x, int y)
   case 'p':
 	  camera.setPrj();
 	  break;
+  case 'm':
+	  scene.getEsferaLuz()->spotLight_->switchLight();
+	  break;
 
   case 'f':
 	  //tex.loadColorBuffer(viewPort.getW(), viewPort.getH());
