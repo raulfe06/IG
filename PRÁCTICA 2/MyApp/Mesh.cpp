@@ -257,4 +257,5 @@ void Mesh::enable()
 			glEnableClientState(GL_NORMAL_ARRAY);
 			glNormalPointer(GL_DOUBLE, 0, normals);
 		}
+	}
 }

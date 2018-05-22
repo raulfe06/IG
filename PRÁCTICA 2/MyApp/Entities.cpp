@@ -526,3 +526,19 @@ void EsferaLuz::render(glm::dmat4 const & modelViewMat)
 	Esfera::render(modelViewMat);
 
 }
+Terreno::Terreno()
+{
+	texture.load("..//Bmps//BarrenReds.bmp");
+	indexMesh = new IndexMesh();
+	indexMesh->generateTerrain();
+	material.setSilver();
+}
+void Terreno::draw()
+{
+	texture.bind(GL_MODULATE);
+	indexMesh->draw();
+	material.load();
+	texture.unbind();
+}
+
+

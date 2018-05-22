@@ -20,10 +20,6 @@ void IndexMesh::draw()
 	disable();
 }
 
-IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
-{
-	return nullptr;
-}
 
 void IndexMesh::enable()
 {
@@ -65,16 +61,22 @@ IndexMesh* IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 	GLdouble iv;
 	m->numIndices = numDiv * numDiv * 6; ; // num. de índices
 	m->indices = new GLuint[m->numIndices];
-	for (int i = 0; i < numVer; i++) {
-		for (int j = 0; j < numVer; j++) {
+	int k = 0;
+	for (int i = 0; i < numDiv; i++) {
+		for (int j = 0; j < numDiv; j++) {
 			iv = i * numVer + j;
-			m->indices[i++] = iv;
+			m->indices[k++] = iv;
+			m->indices[k++] = iv + numVer;
+			m->indices[k++] = iv + 1;
+			m->indices[k++] = iv + 1;
+			m->indices[k++] = iv + numVer;
+			m->indices[k++] = iv + numVer + 1;
 		}
 	}
 	return m;
 }
 IndexMesh* IndexMesh::generateTerrain() {
-	std::ifstream file("terrain.raw", std::ios::binary); // open
+	std::ifstream file("..//Bmps//terrain.raw", std::ios::binary); // open
 	if (!file.is_open()) return nullptr; // "terrain.raw": 257*257 unsigned chars
 	GLuint nDiv = 256; // nVer=257.
 	GLdouble lado = nDiv * 8; // para incr=8
@@ -97,6 +99,43 @@ IndexMesh* IndexMesh::generateTerrain() {
 				= glm::dvec2(i*incr,j*incr);
 		}
 	}
+
+	m->normals = new glm::dvec3[m->numVertices];
+
+	for (int i = 0; i < m->numVertices; i++)
+		m->normals[i] = glm::dvec3(0, 0, 0);
+
+	int j = 0;
+	for (int i = 0; i < m->numIndices; i+=3)
+	{
+
+		int a, b, c;
+
+		a = m->indices[j];
+		b = m->indices[j + 1];
+		c = m->indices[j + 2];
+
+
+		glm::dvec3 n;
+		/*Cálculo del vector normal al triángulo (a, b, c) : el producto
+		vectorial (c – b) x (a – b). */
+		glm::dvec3 aux = m->vertices[a];
+		glm::dvec3 aux1 = m->vertices[b];
+		glm::dvec3 aux2 = m->vertices[c];
+		n = glm::cross(m->vertices[b] - m->vertices[a], m->vertices[c] - m->vertices[a]);
+
+		m->normals[a] += n;
+		m->normals[b] += n;
+		m->normals[c] += n;
+
+
+		j+=3;
+	}
+
+	for (int i = 0; i < m->numVertices; i++)
+		glm::normalize(m->normals[i]);
+
+
 		
 	delete data;
 	// generar normales -> recorrido de triángulos

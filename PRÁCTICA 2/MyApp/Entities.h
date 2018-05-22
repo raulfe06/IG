@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "Material.h"
 #include "Spotlight.h"
+#include "IndexMesh.h"
 
 //-------------------------------------------------------------------------
 
@@ -177,5 +178,17 @@ public:
 	Spotlight* spotLight_;
 	void render(glm::dmat4 const& modelViewMat);
 
+};
+
+class Terreno :public Entity
+{
+protected:
+	IndexMesh* indexMesh = nullptr;
+public:
+	Terreno();
+	~Terreno() {};
+
+	virtual void draw();
+	
 };
 #endif //_H_Entities_H_

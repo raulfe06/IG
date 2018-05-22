@@ -26,6 +26,8 @@ void Scene::init()
 
   objetos.push_back(esferaLuz_);
 
+  
+  objetos.push_back(new Terreno());
   objetos.push_back(new Esfera(100,70,50,0));
   objetos.push_back(new Esfera(100, 70, 50, 1));
   objetos.push_back(new Esfera(100, 70, 50, 2));
