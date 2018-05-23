@@ -461,7 +461,8 @@ void Foto::draw()
 
 }
 
-Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks,int i)
+Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks,int i):radius(radius),slices(slices),stacks(stacks)
+
 {
 	if (i == 0) {
 		texture.load("..//Bmps//sun.bmp");
@@ -507,7 +508,7 @@ void Esfera::draw()
 {
 	texture.bind(GL_MODULATE);
 	material.load();
-	gluSphere(esfera, 100, 30, 30);
+	gluSphere(esfera, radius, slices, stacks);
 	texture.unbind();	
 
 }
@@ -518,19 +519,48 @@ EsferaLuz::EsferaLuz(GLdouble radius, GLint slices, GLint stacks, int i) : Esfer
 	spotLight_->setPos(glm::fvec3(0,0,0));
 	spotLight_->setSpotDir(glm::fvec3(0, -1, 0));
 	spotLight_->enable();
+	esferaIzd = new Esfera(radius / 2.0, slices / 2.0, stacks / 2.0, i - 1);
+	esferaDrch = new Esfera(radius / 2.0, slices / 2.0, stacks / 2.0, i - 1);
+	posRelativa = (radius + (radius / 2.0));
 }
 
 void EsferaLuz::render(glm::dmat4 const & modelViewMat)
 {
 	spotLight_->load(modelViewMat*modelMat);
-	Esfera::render(modelViewMat);
+	dmat4 aMat = modelViewMat * modelMat;
+	glLoadMatrixd(value_ptr(aMat));
+	
+	esferaIzd->setModelMat(translate(modelMat,dvec3(-posRelativa, 0, 0)));
+	esferaDrch->setModelMat(translate(modelMat, dvec3(posRelativa, 0, 0)));
 
+	Esfera::render(aMat);
+
+	esferaIzd->render(aMat);
+	esferaDrch->render(aMat);
+
+
+
+}
+void EsferaLuz::renderIzda(glm::dmat4 const & modelViewMat)
+{
+	glm::dmat4 aMat = modelViewMat * esferaIzd->getModelMat();
+	aMat = translate(aMat, dvec3(-posRelativa,0,0));
+	glLoadMatrixd(value_ptr(aMat));
+	esferaIzd->draw();
+
+}
+void EsferaLuz::renderDrch(glm::dmat4 const & modelViewMat)
+{
+	glm::dmat4 aMat = modelViewMat * esferaDrch->getModelMat();
+	aMat = translate(aMat, dvec3(posRelativa, 0, 0));
+	glLoadMatrixd(value_ptr(aMat));
+	esferaDrch->draw();
 }
 Terreno::Terreno()
 {
 	texture.load("..//Bmps//BarrenReds.bmp");
-	indexMesh = new IndexMesh();
-	indexMesh->generateTerrain();
+	//indexMesh = new IndexMesh();
+	indexMesh = indexMesh->generateTerrain();
 	material.setSilver();
 }
 void Terreno::draw()

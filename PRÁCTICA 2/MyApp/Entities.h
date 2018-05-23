@@ -23,7 +23,7 @@ public:
   void setMaterial(Material const& mt) { material = mt; }
   void setTexture(Texture const& tex) { texture = tex; };
   Material* getMaterial() { return &material; };
-
+  glm::dmat4 getModelMat() { return modelMat; };
   
 protected:
   Mesh* mesh = nullptr;
@@ -169,6 +169,7 @@ public:
 protected:
 	GLUquadricObj* esfera;
 	glm::dvec3 pos;
+	GLint radius, slices, stacks;
 };
 class EsferaLuz : public Esfera
 {
@@ -176,7 +177,12 @@ public:
 	EsferaLuz(GLdouble radius, GLint slices, GLint stacks, int i);
 	~EsferaLuz() {};
 	Spotlight* spotLight_;
+	Esfera* esferaIzd;
+	Esfera* esferaDrch;
 	void render(glm::dmat4 const& modelViewMat);
+	void renderIzda(glm::dmat4 const& modelViewMat);
+	void renderDrch(glm::dmat4 const& modelViewMat);
+	GLdouble posRelativa;
 
 };
 

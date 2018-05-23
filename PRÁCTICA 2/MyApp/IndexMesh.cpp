@@ -51,8 +51,7 @@ IndexMesh* IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 	for (int i = 0; i < numVer; i++) {
 		x = -lado / 2;
 		for (int j = 0; j < numVer; j++) {
-			m->vertices[i * numVer + j]
-				= glm::dvec3(x, 0, z);
+			m->vertices[i * numVer + j] = glm::dvec3(x, 0, z);
 			x += incr;
 		}
 		z += incr;
@@ -105,38 +104,29 @@ IndexMesh* IndexMesh::generateTerrain() {
 	for (int i = 0; i < m->numVertices; i++)
 		m->normals[i] = glm::dvec3(0, 0, 0);
 
-	int j = 0;
+
 	for (int i = 0; i < m->numIndices; i+=3)
 	{
-
 		int a, b, c;
 
-		a = m->indices[j];
-		b = m->indices[j + 1];
-		c = m->indices[j + 2];
+		a = m->indices[i];
+		b = m->indices[i + 1];
+		c = m->indices[i + 2];
 
-
-		glm::dvec3 n;
 		/*Cálculo del vector normal al triángulo (a, b, c) : el producto
 		vectorial (c – b) x (a – b). */
-		glm::dvec3 aux = m->vertices[a];
-		glm::dvec3 aux1 = m->vertices[b];
-		glm::dvec3 aux2 = m->vertices[c];
+		glm::dvec3 n;
+		
 		n = glm::cross(m->vertices[b] - m->vertices[a], m->vertices[c] - m->vertices[a]);
 
 		m->normals[a] += n;
 		m->normals[b] += n;
 		m->normals[c] += n;
-
-
-		j+=3;
 	}
 
 	for (int i = 0; i < m->numVertices; i++)
 		glm::normalize(m->normals[i]);
 
-
-		
 	delete data;
 	// generar normales -> recorrido de triángulos
 	return m;
