@@ -467,25 +467,25 @@ Esfera::Esfera(GLdouble radius, GLint slices, GLint stacks,int i):radius(radius)
 	if (i == 0) {
 		texture.load("..//Bmps//sun.bmp");
 
-		modelMat = translate(modelMat, dvec3(0,200,0));
+		modelMat = translate(modelMat, dvec3(0,-200,0));
 		material.setGold();
 
 	}
 	if (i == 1) {
 		texture.load("..//Bmps//venus.bmp");
 
-		modelMat = translate(modelMat, dvec3(-300,50,0));
+		modelMat = translate(modelMat, dvec3(-300,200,0));
 		material.setSilver();
 	}
 	if (i == 2) {
 		texture.load("..//Bmps//mars.bmp");
 
-		modelMat = translate(modelMat, dvec3(300,50,0));
+		modelMat = translate(modelMat, dvec3(300,200,0));
 		material.setBronze();
 	}
 	if (i == 3) {
 		texture.load("..//Bmps//moon.bmp");
-		pos = dvec3(0, 500, 0);
+		pos = dvec3(0, 100, 0);
 		modelMat = translate(modelMat, pos);
 		material.setBronze();
 		
@@ -522,21 +522,37 @@ EsferaLuz::EsferaLuz(GLdouble radius, GLint slices, GLint stacks, int i) : Esfer
 	esferaIzd = new Esfera(radius / 2.0, slices / 2.0, stacks / 2.0, i - 1);
 	esferaDrch = new Esfera(radius / 2.0, slices / 2.0, stacks / 2.0, i - 1);
 	posRelativa = (radius + (radius / 2.0));
+
+	Cx = 512;
+	Cy = 50; //Altura de la esfera
+	Cz = -Cx;
+
 }
 
 void EsferaLuz::render(glm::dmat4 const & modelViewMat)
 {
-	spotLight_->load(modelViewMat*modelMat);
 	dmat4 aMat = modelViewMat * modelMat;
+
+	/*aMat = translate(aMat, dvec3(Cx * cos(radians(ang)), Cy*sin(radians(ang))*sin(radians(ang)),Cz * sin(radians(ang)*cos(radians(ang)))));*/
+	dvec3 move = dvec3(Cx * cos(radians(ang)), Cy * sin(radians(ang))*sin(radians(ang)), Cz * cos(radians(ang))*sin(radians(ang)));
+	aMat = translate(aMat, move);
+	aMat = rotate(aMat, radians(angle_), dvec3(0, 1, 0));
+
 	glLoadMatrixd(value_ptr(aMat));
-	
+
+	esferaIzd->setModelMat(aMat);
 	esferaIzd->setModelMat(translate(modelMat,dvec3(-posRelativa, 0, 0)));
+
+	esferaDrch->setModelMat(aMat);
 	esferaDrch->setModelMat(translate(modelMat, dvec3(posRelativa, 0, 0)));
 
 	Esfera::render(aMat);
 
 	esferaIzd->render(aMat);
 	esferaDrch->render(aMat);
+	spotLight_->load(aMat);
+
+	if (ang > 360) ang = 0;
 
 
 
@@ -555,6 +571,12 @@ void EsferaLuz::renderDrch(glm::dmat4 const & modelViewMat)
 	aMat = translate(aMat, dvec3(posRelativa, 0, 0));
 	glLoadMatrixd(value_ptr(aMat));
 	esferaDrch->draw();
+}
+
+void EsferaLuz::rotateEsferaLuz(float r)
+{
+	angle_+= r;
+	ang += r;
 }
 Terreno::Terreno()
 {

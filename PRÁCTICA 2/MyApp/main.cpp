@@ -154,6 +154,9 @@ void key(unsigned char key, int x, int y)
 	  scene.getLight()->switchLight();
 
 	  break;
+  case 't':
+	  scene.getEsferaLuz()->rotateEsferaLuz(3);
+	  break;
 
 	  //Para rotar el diabolo cuando esta activo
 	  break;

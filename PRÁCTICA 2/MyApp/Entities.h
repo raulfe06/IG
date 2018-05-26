@@ -183,6 +183,11 @@ public:
 	void renderIzda(glm::dmat4 const& modelViewMat);
 	void renderDrch(glm::dmat4 const& modelViewMat);
 	GLdouble posRelativa;
+	void rotateEsferaLuz(float r);
+	double angle_ = 0.0;
+private:
+	GLdouble Cx, Cy, Cz;
+	GLdouble ang = 0.0;
 
 };
 
